@@ -1,0 +1,30 @@
+{
+    "presets": [
+    ["@babel/preset-env", {
+    "targets": {
+        "ie": "11",
+        "edge": "15",
+        "safari": "10",
+        "firefox": "50",
+        "chrome": "49"
+    }
+    }],
+    [ "@babel/preset-typescript",
+        {
+          "isTSX": true,
+          "allExtensions": true
+        }
+    ],
+    ["@babel/preset-react",
+        {
+        "flow": false,
+        "typescript": true
+        } 
+    ]
+    ],
+    "plugins": [
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread"
+    ],
+    "sourceMaps" :true
+}
