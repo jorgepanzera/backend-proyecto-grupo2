@@ -9,6 +9,9 @@
     // Completa con Routes - Controllers - Services - Middleware (jwt/loggers) similar a la anterior (separa app de server)
     https://blog.treblle.com/egergr/
 
+   // Reglas para API Rest
+    https://blog.treblle.com/the-10-rest-commandments/
+
 
 // Database (ORM o sentencias sql)
 
