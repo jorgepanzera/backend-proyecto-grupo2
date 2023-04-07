@@ -6,7 +6,9 @@
 import express, { Request, Response, NextFunction } from "express"
 import bodyParser from "body-parser"
 import { logActivity } from "./middleware/utils"
-import tokenRoutes from './routes/tokens';
+import petRoutes from './routes/pets'
+import tokenRoutes from './routes/tokens'
+
 
 
 const app = express()
@@ -24,6 +26,8 @@ app.get("/ping", (req: Request, res: Response) => {
 });
   
 // Routes
+app.use('/pets', petRoutes)
 app.use('/token', tokenRoutes)
+
 
 export default app
