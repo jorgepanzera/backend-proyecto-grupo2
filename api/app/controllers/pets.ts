@@ -49,14 +49,11 @@ const pets: Pet[] = [
   
 
 const getAllPets = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.params)
     res.json(pets);
 }
 
 const getPetById = (req: Request, res: Response, next: NextFunction) => {
     const targetId = parseInt(req.params.id)
-    console.log(req.params)
-    console.log(`targetId: ${targetId}`)
     res.json(pets.filter(pet => pet.id === targetId))
 }
 
@@ -66,12 +63,12 @@ const createPet = (req: Request, res: Response, next: NextFunction) => {
 
 const updatePet = (req: Request, res: Response, next: NextFunction) => {
     const targetId = parseInt(req.params.id)
-    res.json(targetId)
+  res.json({ targetId })
 }
 
 const deletePet = (req: Request, res: Response, next: NextFunction) => {
     const targetId = parseInt(req.params.id)
-    res.json(targetId)
+  res.json({ targetId })
 }
 
 export default {getAllPets, getPetById, createPet, updatePet, deletePet}

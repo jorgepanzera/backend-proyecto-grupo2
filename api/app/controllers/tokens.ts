@@ -3,6 +3,7 @@ import { generateToken } from "../middleware/utils";
 
 
 // Get a JWT token with 1-hour expiration
+// para consumirlo armar request.body con { "username":"admin", "password":"password"} y application/json
 const createToken = (req: Request, res: Response, next: NextFunction) => {
     
   const { username, password } = req.body;

@@ -1,8 +1,9 @@
 import  app  from './app/index'
-import process from 'process'
-
+import dotenv from 'dotenv'
+dotenv.config()
 
 const port = process.env.API_SERVER_PORT || '3000'
+
 
 // start server en puerto definido
 ;(function () {
@@ -14,3 +15,4 @@ const port = process.env.API_SERVER_PORT || '3000'
         console.log('ERROR:', err)
     }
 })()
+

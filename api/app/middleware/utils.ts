@@ -1,7 +1,9 @@
 import express, { Request, Response, NextFunction } from "express"
-import bodyParser from "body-parser"
 import jwt from "jsonwebtoken"
-import process from "process"
+import dotenv from 'dotenv'
+dotenv.config()
+
+
 
 // Loguear a consola todo los request y response de la API
 // Posible mejora usando log a archivo con morgan o similar
@@ -21,7 +23,7 @@ export function logActivity(req: Request, res: Response, next: NextFunction) {
 
 // JWT secret key
 //const secretKey = process.env.JWT_SECRET as string;
-const secretKey = "MySecretKeyForTheProject5456454"
+const secretKey = process.env.JWT_SECRET as string
 
 
 // Generate a new JWT token with a one hour expiration time
@@ -34,20 +36,32 @@ export function generateToken(username: string, expiresIn: number) {
 }
 
 // JWT secret token authentication middleware
+// Para consumirlo 1) obtener JWT token con el post /token (usuario y password)
+// armar header.authorization "Bearer tokenObtenido" 
+// ejemplo "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODA5MDA4MzcsImV4cCI6MTY4NDUwMDgzN30.UTsEEX2BgrrYiQ2cp1quTUZUMnj3L5FIT5ZecNQ4Btc"
 export const authenticateJWT = (req: Request, res: Response, next: any) => {
   const authHeader = req.headers.authorization;
+  let authenticationDefault = false
 
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
-      if (err) {
-        return res.sendStatus(403);
+  // Autenticacion explicita para la aplicacion web, clave predefinida
+  if (authHeader === "TokenImplicitoParaLaAplicacionWeb") {
+    authenticationDefault = true
+    next()
+  }
+
+  if (!authenticationDefault) {
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
+        if (err) {
+          return res.sendStatus(403);
+        }
+
+        //req.user = user; Si lo necesito luego al dato user, hay que hacer una interfaz AuthenticatedRequest extends Request y agregar el dato user
+        next();
+      });
+    } else {
+      res.sendStatus(401);
       }
-
-      //req.user = user; Si lo necesito luego al dato user, hay que hacer una interfaz AuthenticatedRequest extends Request y agregar el dato user
-      next();
-    });
-  } else {
-    res.sendStatus(401);
   }
 };

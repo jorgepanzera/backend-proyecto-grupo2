@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', controller.createPet)
 router.get('/:id', controller.getPetById)
-router.get('/', controller.getAllPets)
+router.get('/', authenticateJWT, controller.getAllPets)
 // router.get('/', authenticateJWT, controller.getAllPets) PROBAR LUEGO CON JWT
 
 
