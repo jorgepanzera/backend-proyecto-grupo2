@@ -4,15 +4,10 @@ import { authenticateJWT } from '../middleware/utils';
 
 const router = express.Router();
 
-router.post('/', controller.createPet)
-router.get('/:id', controller.getPetById)
+router.post('/', authenticateJWT, controller.createPet)
+router.get('/:id', authenticateJWT, controller.getPetById)
 router.get('/', authenticateJWT, controller.getAllPets)
-// router.get('/', authenticateJWT, controller.getAllPets) PROBAR LUEGO CON JWT
-
-
-router.delete('/:id', controller.deletePet)
-router.put('/:id', controller.deletePet)
-//router.put('/:id', controller.updatePet)
-//router.delete('/:id', controller.deletePete)
+router.delete('/:id', authenticateJWT, controller.deletePet)
+router.put('/:id', authenticateJWT, controller.deletePet)
 
 export = router;
