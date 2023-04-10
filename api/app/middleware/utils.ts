@@ -31,7 +31,7 @@ const secretKey = process.env.JWT_SECRET as string
 export function generateToken(username: string, expiresIn: number) {
   const issuedAt = Math.floor(Date.now() / 1000);
   const expiration = Math.floor(Date.now() / 1000) + expiresIn;
-  console.log(`secretKey: ${secretKey} issuedAt: ${issuedAt} expiration: ${expiration}`)
+  //console.log(`secretKey: ${secretKey} issuedAt: ${issuedAt} expiration: ${expiration}`)
   return jwt.sign({ name:username, iat: issuedAt, exp: expiration }, secretKey);
 }
 
@@ -43,8 +43,9 @@ export const authenticateJWT = (req: Request, res: Response, next: any) => {
   const authHeader = req.headers.authorization;
   let authenticationDefault = false
 
+  console.log(authHeader)
   // Autenticacion explicita para la aplicacion web, clave predefinida
-  if (authHeader === "TokenImplicitoParaLaAplicacionWeb") {
+  if (authHeader === (process.env.DEFAULT_AUTHENTICATION_TOKEN) as string) {
     authenticationDefault = true
     next()
   }

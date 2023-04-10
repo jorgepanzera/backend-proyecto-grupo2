@@ -1,10 +1,11 @@
 import mysql from 'mysql2'
+import process from 'process';
 
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'MyNewPass',
-  database: 'pets',
+export const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -15,17 +16,11 @@ interface QueryResult<T> {
   results: T[];
 }
 
-async function queryDatabase<T>(query: string): Promise<QueryResult<T>> {
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'your_mysql_username',
-    password: 'your_mysql_password',
-    database: 'your_mysql_database_name'
-  });
+export async function queryDatabase<T>(query: string): Promise<QueryResult<T>> {
 
   try {
     const results = await new Promise<T[]>((resolve, reject) => {
-      connection.query(query, (error, results) => {
+      pool.query(query, (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -39,18 +34,15 @@ async function queryDatabase<T>(query: string): Promise<QueryResult<T>> {
     };
   } catch (error) {
     throw error;
-  } finally {
-    connection.end();
   }
 }
-
+/*
 interface User {
     username: string;
-    password: string;
-    user_type: number;
+    password: string
   }
   
-  async function getUsers(): Promise<User[]> {
+  async function verifyUser(username:string, password:string): Promise<User[]> {
     const query = 'SELECT * FROM users';
   
     const result = await queryDatabase<User>(query);
@@ -123,4 +115,5 @@ interface User {
 await deleteUser(userIdToDelete);
 
 
-export default pool;
+
+*/
