@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { generateToken } from "../middleware/utils";
-import services from '../services/users'
+import services from '../services/users.services'
 
 
 // Get a JWT token with 1-hour expiration
@@ -9,9 +9,8 @@ const createToken = async (req: Request, res: Response, next: NextFunction) => {
 
   const { username, password } = req.body;
 
-  // validar username y password desde una bd
-  const user = await services.verifyUser(username, password)
-  if (user) {
+  // validar username y password 
+  if (await services.verifyUser(username, password)) {
     const token = generateToken(username, 1000 * 60 * 60); // 1 hora en miliseconds
     res.json({ token });
   } else {

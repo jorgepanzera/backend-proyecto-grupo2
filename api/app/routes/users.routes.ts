@@ -1,10 +1,10 @@
 
-import controller from '../controllers/tokens';
+import controller from '../controllers/users.controller';
 import express from 'express';
 
 const router = express.Router();
 
 // no lleva authenticateJWT, es para obtener el token
-router.post('/', controller.createToken)
+router.post('/token', controller.createToken)
 
 export = router;

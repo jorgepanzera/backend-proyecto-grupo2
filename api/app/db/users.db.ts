@@ -1,4 +1,4 @@
-import {pool, queryDatabase} from './db'
+import {queryDatabase} from './db'
 import {User} from '../models/inter'
 
 
