@@ -16,38 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pet`
+-- Table structure for table `pet_status`
 --
 
-DROP TABLE IF EXISTS `pet`;
+DROP TABLE IF EXISTS `pet_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pet` (
-  `pet_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `owner_user` varchar(150) NOT NULL,
-  `pet_type` int NOT NULL,
-  `breed_id` int NOT NULL,
-  `pet_status` int DEFAULT NULL,
-  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`pet_id`),
-  UNIQUE KEY `pet_id_UNIQUE` (`pet_id`),
-  KEY `FK_PET_TYPE_idx` (`pet_type`),
-  KEY `FK_OWNER_idx` (`owner_user`),
-  KEY `fk_pet_status_idx` (`pet_status`),
-  CONSTRAINT `fk_pet_status` FOREIGN KEY (`pet_status`) REFERENCES `pet_status` (`status_id`),
-  CONSTRAINT `FK_PET_TYPE` FOREIGN KEY (`pet_type`) REFERENCES `pet_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `pet_status` (
+  `status_id` int NOT NULL,
+  `status` varchar(150) NOT NULL,
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pet`
+-- Dumping data for table `pet_status`
 --
 
-LOCK TABLES `pet` WRITE;
-/*!40000 ALTER TABLE `pet` DISABLE KEYS */;
-INSERT INTO `pet` VALUES (1,'Toby','testfreeuser',1,5,1,'2023-04-23 15:39:12'),(2,'Laika','testfreeuser',1,12,1,'2023-04-23 15:39:12'),(3,'Pepe','testfreeuser',1,3,2,'2023-04-23 15:39:12'),(4,'Tom','testfreeuser',2,1001,2,'2023-04-23 15:39:12'),(5,'Garfield','testfreeuser',2,1003,1,'2023-04-23 15:39:12');
-/*!40000 ALTER TABLE `pet` ENABLE KEYS */;
+LOCK TABLES `pet_status` WRITE;
+/*!40000 ALTER TABLE `pet_status` DISABLE KEYS */;
+INSERT INTO `pet_status` VALUES (1,'A Salvo'),(2,'Perdida');
+/*!40000 ALTER TABLE `pet_status` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -59,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 18:28:21
+-- Dump completed on 2023-04-30 18:28:20
