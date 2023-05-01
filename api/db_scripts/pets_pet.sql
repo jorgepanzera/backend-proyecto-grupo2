@@ -28,6 +28,7 @@ CREATE TABLE `pet` (
   `owner_user` varchar(150) NOT NULL,
   `pet_type` int NOT NULL,
   `breed_id` int NOT NULL,
+  `qr_code` varchar(200) NOT NULL,
   `pet_status` int DEFAULT NULL,
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pet_id`),
@@ -46,7 +47,7 @@ CREATE TABLE `pet` (
 
 LOCK TABLES `pet` WRITE;
 /*!40000 ALTER TABLE `pet` DISABLE KEYS */;
-INSERT INTO `pet` VALUES (1,'Toby','testfreeuser',1,5,1,'2023-04-23 15:39:12'),(2,'Laika','testfreeuser',1,12,1,'2023-04-23 15:39:12'),(3,'Pepe','testfreeuser',1,3,2,'2023-04-23 15:39:12'),(4,'Tom','testfreeuser',2,1001,2,'2023-04-23 15:39:12'),(5,'Garfield','testfreeuser',2,1003,1,'2023-04-23 15:39:12');
+INSERT INTO `pet` VALUES (1,'Toby','testfreeuser',1,5,'qrcode43sdfsdf3',1,'2023-04-23 15:39:12'),(2,'Laika','testfreeuser',1,12,'qrcode43sdfsdf3',1,'2023-04-23 15:39:12'),(3,'Pepe','testfreeuser',1,3,'qrcode43sdfsdf3',2,'2023-04-23 15:39:12'),(4,'Tom','testfreeuser',2,1001,'qrcode43sdfsdf3',2,'2023-04-23 15:39:12'),(5,'Garfield','testfreeuser',2,1003,'qrcode43sdfsdf3',1,'2023-04-23 15:39:12');
 /*!40000 ALTER TABLE `pet` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 18:28:21
+-- Dump completed on 2023-05-01 18:29:54

@@ -29,6 +29,8 @@ CREATE TABLE `event_history` (
   `event_type` int NOT NULL,
   `user` varchar(150) NOT NULL,
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` decimal(7,4) DEFAULT NULL,
+  `longitud` decimal(7,4) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   KEY `fk_event_pet_idx` (`pet_id`),
   KEY `fk_event_type_event_idx` (`event_type`),
@@ -55,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-23 18:31:40
+-- Dump completed on 2023-05-01 18:29:54

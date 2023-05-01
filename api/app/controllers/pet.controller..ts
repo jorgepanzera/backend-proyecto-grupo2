@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Pet } from '../models/inter'
+import { Pet } from '../models/interfaces'
 import service from '../services/pet.services'
 
 
@@ -41,7 +41,7 @@ const pets: Pet[] = [
 
 const getAllPets = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    return res.json(await service.getPets(0))
+    return res.json(await service.getPets(0,""))
 
   } catch (err) {
     console.error(err);
@@ -55,7 +55,20 @@ const getPetById = async (req: Request, res: Response, next: NextFunction) => {
   const targetId = parseInt(req.params.id)
   
   try {
-    return res.json(await service.getPets(targetId))
+    return res.json(await service.getPets(targetId,""))
+
+  } catch (err) {
+    console.error(err);
+    next(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+const getPetsByUser = async (req: Request, res: Response, next: NextFunction) => {
+  const targetUser = req.params.user
+  
+  try {
+    return res.json(await service.getPets(0,targetUser))
 
   } catch (err) {
     console.error(err);
@@ -79,7 +92,7 @@ const deletePet = (req: Request, res: Response, next: NextFunction) => {
   res.json({ targetId })
 }
 
-export default {getAllPets, getPetById, createPet, updatePet, deletePet}
+export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet}
 
 /* CON BD
 const getAllPets = (req: Request, res: Response, next: NextFunction) => {

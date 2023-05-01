@@ -1,5 +1,5 @@
 import {queryDatabase} from './db'
-import {User} from '../models/inter'
+import {User} from '../models/interfaces'
 
 
 async function verifyUser(username:string, password:string): Promise<User[]> {

@@ -28,6 +28,8 @@ CREATE TABLE `event` (
   `event_type` int NOT NULL,
   `user` varchar(150) NOT NULL,
   `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `latitude` decimal(7,4) DEFAULT NULL,
+  `longitud` decimal(7,4) DEFAULT NULL,
   PRIMARY KEY (`event_id`),
   KEY `fk_event_pet_idx` (`pet_id`),
   KEY `fk_event_type_event_idx` (`event_type`),
@@ -42,7 +44,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,1,1,'GuessUser','2023-04-23 21:04:31'),(2,1,2,'GuessUser','2023-04-23 21:05:41'),(3,1,2,'GuessUser2','2023-04-23 21:05:41'),(4,1,3,'GuessUser2','2023-04-23 21:05:41'),(5,3,1,'GuessUser','2023-04-23 21:06:06'),(6,3,2,'GuessUser3','2023-04-23 21:06:22'),(7,4,1,'GuessUser3','2023-04-23 21:06:56'),(8,4,2,'GuessUser','2023-04-23 21:06:56'),(9,4,2,'GuessUser2','2023-04-23 21:06:56'),(10,4,3,'GuessUser3','2023-04-23 21:06:56');
+INSERT INTO `event` VALUES (1,1,1,'GuessUser','2023-04-23 21:04:31',-34.9011,-56.1645),(2,1,2,'GuessUser','2023-04-23 21:05:41',-34.8581,-56.1708),(3,1,2,'GuessUser2','2023-04-23 21:05:41',-34.9045,-56.1804),(4,1,3,'GuessUser2','2023-04-23 21:05:41',-34.9109,-56.1694),(5,3,1,'GuessUser','2023-04-23 21:06:06',-34.9021,-56.1538),(6,3,2,'GuessUser3','2023-04-23 21:06:22',-34.8972,-56.1667),(7,4,1,'GuessUser3','2023-04-23 21:06:56',-34.9028,-56.1556),(8,4,2,'GuessUser','2023-04-23 21:06:56',-34.9014,-56.1752),(9,4,2,'GuessUser2','2023-04-23 21:06:56',-34.9068,-56.1911),(10,4,3,'GuessUser3','2023-04-23 21:06:56',-34.8581,-56.1708);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-23 18:31:40
+-- Dump completed on 2023-05-01 18:29:55

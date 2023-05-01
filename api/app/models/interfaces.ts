@@ -1,3 +1,13 @@
+export interface User {
+  username: string;
+  password: string;
+  user_type: number;
+  type: string;
+  email: string;
+  mobile_number: string;
+  created_time: Date
+}
+
 export interface Pet {
   pet_id: number;
   owner: string;
@@ -6,10 +16,13 @@ export interface Pet {
   type: string;
   breed_id: number;
   breed: string;
+  qr_code: string;
   status_id: number;
   status: string;
   cant_events: number;
   events: Event[];
+  cant_photos: number;
+  photos: Photo[]
 }
 
 export interface Event {
@@ -18,15 +31,26 @@ export interface Event {
   event_name: string;
   created_by: string;
   created_date: Date
-  duration: number;
-  distance: number;
+  latitude: number;
+  longitud: number;
+  photos: Photo[]
 }
 
-
-export interface User {
-  username: string;
-  password: string
+export interface Photo {
+  photo_id: number;
+  url: string;
+  created_date: Date;
 }
+
+export interface Message {
+  message_id: number;
+  from: string;
+  to: string;
+  type: string;
+  created: Date;
+  message: string
+}
+
 
 /*
 const pets: Pet[] = [
