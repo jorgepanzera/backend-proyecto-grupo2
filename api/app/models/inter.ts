@@ -1,22 +1,34 @@
 export interface Pet {
-  id: number;
-  name: string;
-  state: string;
+  pet_id: number;
   owner: string;
-  walks: Walk[];
+  name: string;
+  pet_type: number;
+  type: string;
+  breed_id: number;
+  breed: string;
+  status_id: number;
+  status: string;
+  cant_events: number;
+  events: Event[];
 }
 
-export interface Walk {
-  date: Date;
+export interface Event {
+  event_id: number;
+  event_type: number;
+  event_name: string;
+  created_by: string;
+  created_date: Date
   duration: number;
   distance: number;
 }
+
 
 export interface User {
   username: string;
   password: string
 }
 
+/*
 const pets: Pet[] = [
   {
     id: 1,
@@ -51,4 +63,4 @@ const pets: Pet[] = [
 ];
 
 export default { pets }
-
+*/

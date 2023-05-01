@@ -1,19 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
+import { Pet } from '../models/inter'
+import service from '../services/pet.services'
 
-interface Pet {
-    id: number;
-    name: string;
-    state: string;
-    owner: string;
-    walks: Walk[];
-  }
-  
-  interface Walk {
-    date: Date;
-    duration: number;
-    distance: number;
-}
 
+/*
 const pets: Pet[] = [
     {
       id: 1,
@@ -46,16 +36,34 @@ const pets: Pet[] = [
       ],
     },
 ];
+*/
   
 
-const getAllPets = (req: Request, res: Response, next: NextFunction) => {
-    res.json(pets);
+const getAllPets = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    return res.json(await service.getPets(0))
+
+  } catch (err) {
+    console.error(err);
+    next(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }
 
-const getPetById = (req: Request, res: Response, next: NextFunction) => {
-    const targetId = parseInt(req.params.id)
-    res.json(pets.filter(pet => pet.id === targetId))
+
+const getPetById = async (req: Request, res: Response, next: NextFunction) => {
+  const targetId = parseInt(req.params.id)
+  
+  try {
+    return res.json(await service.getPets(targetId))
+
+  } catch (err) {
+    console.error(err);
+    next(err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }
+
 
 const createPet = (req: Request, res: Response, next: NextFunction) => {
     res.json(req.body)
