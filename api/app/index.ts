@@ -7,7 +7,7 @@ import express, { Request, Response, NextFunction } from "express"
 import bodyParser from "body-parser"
 import { logActivity } from "./middleware/utils"
 import petRoutes from './routes/pet.routes.'
-import userRoutes from './routes/users.routes'
+import userRoutes from './routes/user.routes'
 
 
 const app = express()
@@ -27,7 +27,5 @@ app.get("/ping", (req: Request, res: Response) => {
 // Routes
 app.use('/users', userRoutes)
 app.use('/pets', petRoutes)
-
-
 
 export default app

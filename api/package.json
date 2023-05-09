@@ -6,7 +6,8 @@
   "scripts": {
     "startapi": "npx nodemon --require babel-register -w . -w .env server.ts",
     "compile_scripts": "babel scripts --out-dir scripts --extensions '.js,.ts,.tsx,.jsx'",
-    "compile_api": "babel api --out-dir api --extensions '.js,.ts,.tsx,.jsx'",
+    "compile_api": "babel . --out-dir dist --extensions '.js,.ts,.tsx,.jsx'",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "trymongojs": "node scripts/trymongo.js",
     "trymongo": "npx ts-node scripts/trymongo.ts"

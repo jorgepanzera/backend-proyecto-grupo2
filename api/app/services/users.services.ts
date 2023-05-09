@@ -1,4 +1,4 @@
-import db from '../db/users.db'
+import db from '../db/user.db'
 
 const verifyUser =  async (username:string, password:string) : Promise<boolean> => {
 
