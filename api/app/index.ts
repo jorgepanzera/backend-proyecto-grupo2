@@ -12,6 +12,8 @@ import userRoutes from './routes/user.routes'
 
 const app = express()
 
+// ** Middleware ** //
+
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,13 +21,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware para loguear actividad
 app.use(logActivity)
 
+// ** Routes ** //
+
 // Ping route to test API availability
 app.get("/ping", (req: Request, res: Response) => {
     res.send("Pong");
 });
-  
-// Routes
+
+// "Business" Routes
 app.use('/users', userRoutes)
 app.use('/pets', petRoutes)
+
+
 
 export default app
