@@ -55,6 +55,9 @@ export const authenticateJWT = (req: Request, res: Response, next: any) => {
       const token = authHeader.split(" ")[1];
       jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
         if (err) {
+          if (err.name === 'TokenExpiredError') {
+            return res.status(401).json({ message: 'Token expired' });
+          }          
           return res.sendStatus(403);
         }
 
