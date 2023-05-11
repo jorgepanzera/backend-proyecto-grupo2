@@ -51,7 +51,53 @@ export interface Message {
   message: string
 }
 
+/* class-validator para agregarle validaciones a las interfaces */
+/*
+import { IsString, IsEmail, MinLength } from 'class-validator';
 
+class User {
+  @IsString()
+  username: string;
+
+  @IsString()
+  @MinLength(6)
+  password: string;
+
+  @IsString()
+  @IsEmail()
+  email: string;
+
+  // Other properties and methods
+}
+
+const createUser = async (req, res) => {
+  try {
+    const userData = req.body;
+
+    const user = new User();
+    Object.assign(user, userData); // Assign the user data to the user object
+
+    // Validate the user object
+    const errors = await validate(user);
+
+    if (errors.length > 0) {
+      // If there are validation errors, return the error response
+      return res.status(400).json({ error: errors });
+    }
+
+    // Save the user to the database
+    // ...
+
+    // Return success response
+    return res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    // Handle other errors
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+*/
 /*
 const pets: Pet[] = [
   {
