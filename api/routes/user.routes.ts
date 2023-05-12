@@ -6,5 +6,6 @@ const router = express.Router();
 
 // no lleva authenticateJWT, es para obtener el token
 router.post('/token', controller.createToken)
+router.post("/", controller.createUser)
 
 export = router;

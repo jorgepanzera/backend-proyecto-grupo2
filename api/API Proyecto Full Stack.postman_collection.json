@@ -1,16 +1,27 @@
 {
 	"info": {
-		"_postman_id": "26de4f5d-c982-456a-958a-ea55bae4cba1",
+		"_postman_id": "8c7ee520-5f3f-4206-8096-2482c4f1b55f",
 		"name": "API Proyecto Full Stack",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12622857"
+		"_exporter_id": "21598378"
 	},
 	"item": [
 		{
 			"name": "Ping",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"ping"
+					]
+				}
 			},
 			"response": []
 		},
@@ -35,7 +46,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"username\":\"admin\", \"password\":\"password\"}",
+					"raw": "{ \"username\":\"admin\", \"password\":\"MyPetPassword2023\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,13 +54,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/token",
+					"raw": "http://localhost:3000/users/token",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"users",
 						"token"
 					],
 					"query": [
@@ -148,7 +160,25 @@
 			"name": "GetAllPets",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/pets/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pets",
+						"token"
+					]
+				}
 			},
 			"response": []
 		},
@@ -156,7 +186,10 @@
 			"name": "GetAllPetsTokenDefault",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -164,7 +197,25 @@
 			"name": "GetPetById",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/pets/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"pets",
+						"4"
+					]
+				}
 			},
 			"response": []
 		},
@@ -228,7 +279,38 @@
 			"name": "DeletePet",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Jorge\",\r\n    \"password\":\"12345678\",\r\n    \"email\": \"kajdfkjdk@pepe.com\",\r\n    \"user_type\":2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
 			},
 			"response": []
 		}
