@@ -1,4 +1,4 @@
-export interface User {
+/*export interface User {
   username: string;
   password: string;
   user_type: number;
@@ -6,7 +6,7 @@ export interface User {
   email: string;
   mobile_number: string;
   created_time: Date
-}
+}*/
 
 export interface Pet {
   pet_id: number;
