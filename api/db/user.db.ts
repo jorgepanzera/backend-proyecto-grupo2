@@ -10,4 +10,24 @@ async function verifyUser(username:string, password:string): Promise<User[]> {
   return result.results;
 }
 
-export default {verifyUser}
+async function createUser(user:User): Promise<User> {
+
+  user.user_type = user.user_type || 1
+
+  const query = `insert into user (username, password, email, mobile_number, type) 
+                  values ("${user.username}","${user.password}","${user.email}","${user.mobile_number}", ${user.user_type})`
+
+  await queryDatabase<void>(query);
+
+  // Fetch the newly created user
+   const fetchQuery = `SELECT * FROM user WHERE username = "${user.username}"`;
+   const { results } = await queryDatabase<User>(fetchQuery);
+  
+      if (results.length === 0) {
+        throw new Error('User not found'); // Throw an error if the user was not found
+      }
+
+  return results[0];
+}
+
+export default {verifyUser, createUser}

@@ -51,6 +51,32 @@ export interface Message {
   message: string
 }
 
+import { IsNotEmpty, IsEmail, IsOptional, IsInt, Min, IsDateString } from 'class-validator';
+
+export class User {
+  @IsNotEmpty()
+  username!: string;
+
+  @IsNotEmpty()
+  password!: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email!: string;
+
+  @IsOptional()
+  mobile_number!: string;
+
+  @IsInt()
+  @Min(1)
+  @IsOptional()
+  user_type: number = 1;
+
+   @IsOptional()
+  created_time: Date = new Date();
+}
+
+
 
 /*
 const pets: Pet[] = [
