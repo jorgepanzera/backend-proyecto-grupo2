@@ -1,5 +1,5 @@
 
-import { Pet, Event, Photo } from '../models/interfaces'
+import { Pet, Event, Photo } from '../models/pet.model'
 import { queryDatabase } from './db';
 
 

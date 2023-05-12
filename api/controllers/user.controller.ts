@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { generateToken } from "../middleware/utils";
 import services from '../services/user.services'
 import { validate } from 'class-validator';
-import { User } from "../models/interfaces"
+import { User, InsertUserDto, UpdateUserDto } from "../models/user.model"
 
 
 // Get a JWT token with 1-hour expiration
@@ -27,7 +27,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     // Create a new instance of User
-    let user = new User();
+    let user = new InsertUserDto();
     user.username = userData.username;
     user.password = userData.password;
     user.email = userData.email;

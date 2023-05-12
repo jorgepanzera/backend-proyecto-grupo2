@@ -1,5 +1,5 @@
 import db from '../db/user.db'
-import { User } from '../models/interfaces'
+import { User, InsertUserDto, UpdateUserDto } from '../models/user.model'
 
 const verifyUser =  async (username:string, password:string) : Promise<boolean> => {
 
@@ -11,7 +11,7 @@ const verifyUser =  async (username:string, password:string) : Promise<boolean> 
 
 }
 
-const createUser = async (user: User) : Promise<User> => {
+const createUser = async (user: InsertUserDto) : Promise<User> => {
 
   // Create a new instance of User
   const result = await db.createUser(user)

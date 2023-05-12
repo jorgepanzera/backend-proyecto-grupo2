@@ -1,5 +1,5 @@
 import {queryDatabase} from './db'
-import {User} from '../models/interfaces'
+import {User, InsertUserDto, UpdateUserDto} from '../models/user.model'
 
 
 async function verifyUser(username:string, password:string): Promise<User[]> {
@@ -10,7 +10,7 @@ async function verifyUser(username:string, password:string): Promise<User[]> {
   return result.results;
 }
 
-async function createUser(user:User): Promise<User> {
+async function createUser(user:InsertUserDto): Promise<User> {
 
   user.user_type = user.user_type || 1
 

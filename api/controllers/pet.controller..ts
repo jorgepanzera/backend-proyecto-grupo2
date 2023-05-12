@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Pet } from '../models/interfaces'
+import { Pet } from '../models/pet.model'
 import service from '../services/pet.services'
 
 
