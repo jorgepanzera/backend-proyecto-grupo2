@@ -54,7 +54,6 @@ export class UpdateUserDto {
   @IsOptional()
   user_type?: number;
 
-  @IsDateString()
   @IsOptional()
   created_time?: Date;
 }
