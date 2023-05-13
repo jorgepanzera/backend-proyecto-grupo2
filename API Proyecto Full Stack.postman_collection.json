@@ -1,11 +1,374 @@
 {
 	"info": {
-		"_postman_id": "8c7ee520-5f3f-4206-8096-2482c4f1b55f",
+		"_postman_id": "7e0ecc19-4ebd-443e-955d-9de7ae6622c4",
 		"name": "API Proyecto Full Stack",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21598378"
+		"_exporter_id": "12622857"
 	},
 	"item": [
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "GetAllPets",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/pets/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pets",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllPetsTokenDefault",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/pets/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pets",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetsByUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer TokenImplicitoParaLaAplicacionWeb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/pets/user/testfreeuser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pets",
+								"user",
+								"testfreeuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "pepe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/pets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MzI1NzAsImV4cCI6MTY4NzUzMjU3MH0.3M48GjtKIa6ZOQojJT2qpFBqL0o3t7tqDTUBlDKAaFo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Jorge\",\r\n    \"password\":\"12345678\",\r\n    \"email\": \"kajdfpe.com\",\r\n    \"user_type\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"username\":\"admin\", \"password\":\"MyPetPassword2023\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "TokenJWT",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"type": "text"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"token"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "160"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a0-CprRSaISUNcyRUeMy7obwyadg6M\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 08 Apr 2023 13:33:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODA5NjA4MDEsImV4cCI6MTY4NDU2MDgwMX0.zRY9yUw3wa6-emXLgVFerpbQCJ5_2j_IC9i1O6_KzgM\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Utils",
+			"item": [
+				{
+					"name": "GetPetTypes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer TokenImplicitoParaLaAplicacionWeb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/util/pettype",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"util",
+								"pettype"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetBreeds",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer TokenImplicitoParaLaAplicacionWeb",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/util/petbreed/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"util",
+								"petbreed",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Ping",
 			"request": {
@@ -20,295 +383,6 @@
 					"port": "3000",
 					"path": [
 						"ping"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "TokenJWT",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"username\":\"admin\", \"password\":\"MyPetPassword2023\"}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/users/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users",
-						"token"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": null,
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "TokenJWT",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "admin",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "password",
-									"type": "text"
-								}
-							],
-							"options": {
-								"raw": {
-									"language": "text"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/token",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"token"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "160"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"a0-CprRSaISUNcyRUeMy7obwyadg6M\""
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 08 Apr 2023 13:33:21 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODA5NjA4MDEsImV4cCI6MTY4NDU2MDgwMX0.zRY9yUw3wa6-emXLgVFerpbQCJ5_2j_IC9i1O6_KzgM\"\n}"
-				}
-			]
-		},
-		{
-			"name": "GetAllPets",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3000/pets/token",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"pets",
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllPetsTokenDefault",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetPetById",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3000/pets/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"pets",
-						"4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetPetsByUser",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer TokenImplicitoParaLaAplicacionWeb",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:3000/pets/user/testfreeuser",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"pets",
-						"user",
-						"testfreeuser"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CreatePet",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "name",
-							"value": "pepe",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:3000/pets",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"pets"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DeletePet",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CreateUser",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"Jorge\",\r\n    \"password\":\"12345678\",\r\n    \"email\": \"kajdfkjdk@pepe.com\",\r\n    \"user_type\":2\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"users"
 					]
 				}
 			},

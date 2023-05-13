@@ -3,50 +3,12 @@ import { Pet } from '../models/pet.model'
 import service from '../services/pet.services'
 
 
-/*
-const pets: Pet[] = [
-    {
-      id: 1,
-      name: 'Buddy',
-      state: 'active',
-      owner: 'Alice',
-      walks: [
-        { date: new Date('2022-01-01'), duration: 30, distance: 2.5 },
-        { date: new Date('2022-01-02'), duration: 45, distance: 3.5 },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Charlie',
-      state: 'inactive',
-      owner: 'Bob',
-      walks: [
-        { date: new Date('2022-02-01'), duration: 20, distance: 1.5 },
-        { date: new Date('2022-02-02'), duration: 25, distance: 2.0 },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Daisy',
-      state: 'active',
-      owner: 'Carol',
-      walks: [
-        { date: new Date('2022-03-01'), duration: 40, distance: 3.0 },
-        { date: new Date('2022-03-02'), duration: 35, distance: 2.5 },
-      ],
-    },
-];
-*/
-  
-
 const getAllPets = async (req: Request, res: Response, next: NextFunction) => {
   try {
     return res.json(await service.getPets(0,""))
 
-  } catch (err) {
-    console.error(err);
-    next(err);
-    return res.status(500).json({ error: "Internal server error" });
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -57,10 +19,8 @@ const getPetById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     return res.json(await service.getPets(targetId,""))
 
-  } catch (err) {
-    console.error(err);
-    next(err);
-    return res.status(500).json({ error: "Internal server error" });
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -70,10 +30,8 @@ const getPetsByUser = async (req: Request, res: Response, next: NextFunction) =>
   try {
     return res.json(await service.getPets(0,targetUser))
 
-  } catch (err) {
-    console.error(err);
-    next(err);
-    return res.status(500).json({ error: "Internal server error" });
+  } catch (error) {
+    next(error);
   }
 }
 

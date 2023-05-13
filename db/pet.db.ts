@@ -87,6 +87,23 @@ export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
     }
   
     return pets;
+}
+  
+async function createPet(pet: Pet): Promise<Pet> {
+  const query = `INSERT INTO pet (name, owner_user) VALUES ("${pet.name}", "${pet.owner}")`;
+
+  await queryDatabase<void>(query);
+
+  const fetchQuery = `SELECT * FROM pet WHERE pet_id = LAST_INSERT_ID()`;
+
+  const { results } = await queryDatabase<Pet>(fetchQuery);
+
+  if (results.length === 0) {
+    throw new Error('Failed to fetch the created pet');
   }
+
+  return results[0];
+}
+
  
-  export default { getPets }
+  export default { getPets, createPet }

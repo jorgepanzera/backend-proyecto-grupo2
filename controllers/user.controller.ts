@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { generateToken } from "../middleware/utils";
+import { generateToken } from "../middleware/jwt.middle";
 import services from '../services/user.services'
 import { validate } from 'class-validator';
 import { User, InsertUserDto, UpdateUserDto } from "../models/user.model"

@@ -4,12 +4,9 @@
   "description": "Testing MERN API",
   "main": "server.ts",
   "scripts": {
-    "startapi": "npx nodemon --require babel-register -w . -w .env app.ts",
-    "compile_api": "babel . --out-dir dist --extensions '.js,.ts,.tsx,.jsx'",
+    "start": "npx nodemon --require babel-register -w . -w .env app.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "trymongojs": "node scripts/trymongo.js",
-    "trymongo": "npx ts-node scripts/trymongo.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jorge Panzera",
   "license": "ISC",

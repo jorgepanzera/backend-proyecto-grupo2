@@ -1,6 +1,6 @@
 import controller from '../controllers/pet.controller.';
 import express from 'express';
-import { authenticateJWT } from '../middleware/utils';
+import { authenticateJWT } from '../middleware/jwt.middle';
 
 const router = express.Router();
 

@@ -11,7 +11,6 @@ export const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-
 interface QueryResult<T> {
   results: T[];
 }
@@ -36,6 +35,8 @@ export async function queryDatabase<T>(query: string): Promise<QueryResult<T>> {
     throw error;
   }
 }
+
+
 /*
 interface User {
     username: string;

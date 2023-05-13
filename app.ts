@@ -6,9 +6,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express, { Request, Response, NextFunction } from "express"
 import bodyParser from "body-parser"
-import { logActivity } from "./middleware/utils"
+import { logActivity } from "./middleware/consolelog.middle"
 import petRoutes from './routes/pet.routes.'
 import userRoutes from './routes/user.routes'
+import utilRoutes from './routes/util.routes'
 import createError from 'http-errors'
 
 
@@ -33,7 +34,7 @@ app.get("/ping", (req: Request, res: Response) => {
 // "Business" Routes
 app.use('/users', userRoutes)
 app.use('/pets', petRoutes)
-
+app.use('/util', utilRoutes)
 
 /** Error Handling */
 
