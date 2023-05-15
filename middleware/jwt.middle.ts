@@ -35,19 +35,23 @@ export const authenticateJWT = (req: Request, res: Response, next: any) => {
   if (!authenticationDefault) {
     if (authHeader) {
       const token = authHeader.split(" ")[1];
-      jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
+      jwt.verify(token, process.env.JWT_SECRET as string, (err: any, decoded: any) => {
         if (err) {
-          if (err.name === 'TokenExpiredError') {
-            return res.status(401).json({ message: 'Token expired' });
-          }          
           return res.sendStatus(403);
         }
+      
+        // Check token expiration
+      const currentTime = Math.floor(Date.now() / 1000);
+      if (decoded.exp && decoded.exp < currentTime) {
+        return res.status(401).json({ message: "Token expired" });
+      }
 
         //req.user = user; Si lo necesito luego al dato user, hay que hacer una interfaz AuthenticatedRequest extends Request y agregar el dato user
         next();
       });
     } else {
-      res.sendStatus(401);
+      res.sendStatus(401).send("Check Authorization header");
       }
   }
 };
+
