@@ -199,7 +199,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"username\":\"admin\", \"password\":\"MyPetPassword2023\"}",
+							"raw": "{ \"email\":\"mail2@gmail.com\", \"password\":\"MyPetPassword2023\"}",
 							"options": {
 								"raw": {
 									"language": "json"

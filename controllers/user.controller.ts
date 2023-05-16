@@ -9,11 +9,12 @@ import { User, InsertUserDto, UpdateUserDto } from "../models/user.model"
 // para consumirlo armar request.body con { "username":"admin", "password":"password"} y application/json
 const createToken = async (req: Request, res: Response, next: NextFunction) => {
 
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  // validar username y password 
-  if (await services.verifyUser(username, password)) {
-    const token = generateToken(username, 1000 * 60 * 60); // 1 hora en miliseconds
+  // validar email y password
+  const userVerified = await services.verifyUser(email,password)
+  if (userVerified) {
+    const token = generateToken(userVerified.username!, email, 1000 * 60 * 60); // 1 hora en miliseconds
     res.json({ token });
   } else {
     res.status(401).send({ message: "Invalid credentials" });

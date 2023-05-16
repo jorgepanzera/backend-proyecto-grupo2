@@ -11,6 +11,7 @@ import petRoutes from './routes/pet.routes.'
 import userRoutes from './routes/user.routes'
 import utilRoutes from './routes/util.routes'
 import createError from 'http-errors'
+import logger from 'morgan'
 
 
 const app = express()
@@ -22,7 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware para loguear actividad
-app.use(logActivity)
+app.use(logger('dev'))
+//app.use(logActivity)
 
 // ** Routes ** //
 

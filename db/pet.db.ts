@@ -2,13 +2,15 @@
 import { Pet, Event, Photo } from '../models/pet.model'
 import { queryDatabase } from './db';
 
+interface PetQuery extends Pet  {
+  cant_events: number,
+  cant_photos: number
+}
 
 export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
 
   pet_id = pet_id || 0
   username = username || ""
-
-  console.log(`db getPets pet_id ${pet_id}`)
 
   let query = `select a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
 	                a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code,
@@ -26,7 +28,7 @@ export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
   }
                  
 
-  const queryResult = await queryDatabase<Pet>(query); // Quizas haya que hacer una interface Pets + countWalks para que esto funcione, y queryDatabase<PetExtended>
+  const queryResult = await queryDatabase<PetQuery>(query); // Quizas haya que hacer una interface Pets + countWalks para que esto funcione, y queryDatabase<PetExtended>
   
   const pets: Pet[] = [];
   
@@ -76,10 +78,10 @@ export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
       qr_code: pet.qr_code,
       status_id: pet.status_id,
       status: pet.status,
-      cant_events: pet.cant_events,
+      //cant_events: pet.cant_events,
       events: pet.events,
-      cant_photos: pet.cant_photos,
-      photos: pet.photos
+      //cant_photos: pet.cant_photos,
+      photos: pet.photos,
     };
 
     pets.push(newPet);

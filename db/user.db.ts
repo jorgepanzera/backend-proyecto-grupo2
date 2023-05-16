@@ -2,10 +2,10 @@ import {queryDatabase} from './db'
 import {User, InsertUserDto, UpdateUserDto} from '../models/user.model'
 
 
-async function verifyUser(username:string, password:string): Promise<User[]> {
-  const query = `SELECT username, password FROM user WHERE username = '${username}' AND password = '${password}'`
+async function verifyUser(email:string, password:string): Promise<UpdateUserDto[]> {
+  const query = `SELECT username, password, email FROM user WHERE email = '${email}' AND password = '${password}'`
 
-  const result = await queryDatabase<User>(query);
+  const result = await queryDatabase<UpdateUserDto>(query);
 
   return result.results;
 }

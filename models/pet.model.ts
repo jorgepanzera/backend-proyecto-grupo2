@@ -10,9 +10,7 @@ export interface Pet {
   qr_code: string;
   status_id: number;
   status: string;
-  cant_events: number;
   events: Event[];
-  cant_photos: number;
   photos: Photo[]
 }
 

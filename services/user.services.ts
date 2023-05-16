@@ -1,13 +1,10 @@
 import db from '../db/user.db'
 import { User, InsertUserDto, UpdateUserDto } from '../models/user.model'
 
-const verifyUser =  async (username:string, password:string) : Promise<boolean> => {
+const verifyUser =  async (email:string, password:string) : Promise<UpdateUserDto> => {
 
-    const user = await db.verifyUser(username,password)
-    if (user.length>0) {
-        return(true)
-    }
-    return(false)
+  const user = await db.verifyUser(email, password)
+  return user[0]
 
 }
 

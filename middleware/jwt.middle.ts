@@ -10,11 +10,11 @@ const secretKey = process.env.JWT_SECRET as string
 
 // Generate a new JWT token with a one hour expiration time
 // Utility function to generate a JWT token
-export function generateToken(username: string, expiresIn: number) {
+export function generateToken(username: string, email:string, expiresIn: number) {
   const issuedAt = Math.floor(Date.now() / 1000);
   const expiration = Math.floor(Date.now() / 1000) + expiresIn;
   //console.log(`secretKey: ${secretKey} issuedAt: ${issuedAt} expiration: ${expiration}`)
-  return jwt.sign({ name:username, iat: issuedAt, exp: expiration }, secretKey);
+  return jwt.sign({ name:username, email:email, iat: issuedAt, exp: expiration }, secretKey);
 }
 
 // JWT secret token authentication middleware
@@ -25,7 +25,6 @@ export const authenticateJWT = (req: Request, res: Response, next: any) => {
   const authHeader = req.headers.authorization;
   let authenticationDefault = false
 
-  console.log(authHeader)
   // Autenticacion explicita para la aplicacion web, clave predefinida
   if (authHeader === (process.env.DEFAULT_AUTHENTICATION_TOKEN) as string) {
     authenticationDefault = true
