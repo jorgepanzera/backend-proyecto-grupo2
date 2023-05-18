@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Pet } from '../models/pet.model'
 import service from '../services/pet.services'
-import handleFileUpload from '../middleware/storage.middle'
+//import handleFileUpload from '../middleware/storage.middle'
 
 
 const getAllPets = async (req: Request, res: Response, next: NextFunction) => {

@@ -9,7 +9,7 @@ type File = Express.Multer.File;
 // ...
 
 // Helper function to handle file uploads (using Google Cloud Storage)
-const handleFileUpload = (file: Express.Multer.File): Promise<string> => {
+export const handleFileUpload = (file: Express.Multer.File): Promise<string> => {
   return new Promise((resolve, reject) => {
     // Provide your Google Cloud Storage credentials path or object
     const storage = new Storage({
@@ -43,4 +43,4 @@ const handleFileUpload = (file: Express.Multer.File): Promise<string> => {
   });
 };
 
-export default {handleFileUpload}
+//export default {handleFileUpload}
