@@ -27,7 +27,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const userData: User = req.body;
 
   try {
-    // Create a new instance of User
+    // Create a new instance of InsertUserDto
     let user = new InsertUserDto();
     user.username = userData.username;
     user.password = userData.password;
