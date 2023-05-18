@@ -36,7 +36,18 @@ const getPetsByUser = async (req: Request, res: Response, next: NextFunction) =>
   }
 }
 
-const createPet = async () => { }
+const createPet = async (req: Request, res: Response, next: NextFunction) => { 
+
+  // para recibir desde form-data tanto el json como los files
+  const petData: Pet = JSON.parse(req.body.data)
+  
+  console.log(JSON.parse(req.body.data))
+  console.log(req.files)
+
+
+  return res.json(petData)
+
+}
 
 /*
 ****** Obtener aqui el req.body en petData y el req.files en una variable Express.Multer.File[]
