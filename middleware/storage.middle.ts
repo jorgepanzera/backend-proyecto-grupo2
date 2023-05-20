@@ -12,15 +12,16 @@ type File = Express.Multer.File;
 export const handleFileUpload = (file: Express.Multer.File): Promise<string> => {
   return new Promise((resolve, reject) => {
     // Provide your Google Cloud Storage credentials path or object
+    console.log('storage')
+
     const storage = new Storage({
-      credentials: {
-        client_email: 'backendgrupo2@gmail.com',
-        private_key: 'Backend2023',
-      },
+      keyFilename: './middleware/credentials.json',
     });
+
 
     // Get a reference to your Google Cloud Storage bucket
     const bucket = storage.bucket('mapet_backend_bucket');
+    //console.log(bucket)
 
     // Generate a unique filename for the file
     const filename = `${uuidv4()}-${file.originalname}`;
@@ -28,16 +29,18 @@ export const handleFileUpload = (file: Express.Multer.File): Promise<string> => 
     // Set the Google Cloud Storage file options
     const fileOptions = {
       destination: filename,
-      public: true, // Set the desired access control for the uploaded file
+      publicRead: true, // Set the desired access control for the uploaded file
     };
 
     // Upload the file to Google Cloud Storage
     bucket.upload(file.path, fileOptions, (err: any, uploadedFile: any) => {
       if (err) {
+        console.log(err)
         reject(err);
       } else {
         // Resolve with the file URL
-        resolve(uploadedFile[0].publicUrl());
+        //console.log(uploadedFile)
+        resolve(uploadedFile.publicUrl());
       }
     });
   });

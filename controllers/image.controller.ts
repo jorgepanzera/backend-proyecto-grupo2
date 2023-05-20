@@ -21,11 +21,11 @@ const uploadPetImage = async (req: Request, res: Response, next: NextFunction) =
     try {
       const fileUrls = await Promise.all(files.map((file: Express.Multer.File) => handleFileUpload(file)));
   
-      // fileUrls will contain an array of URLs of the uploaded files
+      // fileUrls va a tener las url de cada imagen subida
       console.log(fileUrls);
-      // ... your logic here
+      // aqui llamar a services y guardar en bd las imagenes para la mascota
   
-      return res.json(fileUrls);
+      return res.json(fileUrls); // el return debe venir de services con la interface photo
     } catch (error) {
       // Handle the error case
       return res.status(500).json({ error: 'Failed to upload files.' });
