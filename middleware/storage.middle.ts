@@ -15,7 +15,7 @@ export const handleFileUpload = (file: Express.Multer.File): Promise<string> => 
     console.log('storage')
 
     const storage = new Storage({
-      keyFilename: './middleware/credentials.json',
+      keyFilename: './.googlecredentials.json',
     });
 
 

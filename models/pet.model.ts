@@ -11,7 +11,7 @@ export interface Pet {
   status_id: number;
   status: string;
   events: Event[];
-  photos: Photo[]
+  photos: PetPhoto[]
 }
 
 export interface Event {
@@ -22,10 +22,17 @@ export interface Event {
   created_date: Date
   latitude: number;
   longitud: number;
-  photos: Photo[]
+  photos: EventPhoto[]
 }
 
-export interface Photo {
+export interface PetPhoto {
+  photo_id: number;
+  url: string;
+  main_photo: number,
+  created_date: Date;
+}
+
+export interface EventPhoto {
   photo_id: number;
   url: string;
   created_date: Date;
