@@ -13,6 +13,7 @@ router.get('/user/:user', authenticateJWT, controller.getPetsByUser)
 router.get('/', authenticateJWT, controller.getAllPets)
 router.delete('/:id', authenticateJWT, controller.deletePet)
 router.patch('/:id', authenticateJWT, controller.updatePet)
+router.get('/type/:type/breed/:breed', authenticateJWT, controller.getPetsByTypeBreed)
 
 router.post('/photo/:id', authenticateJWT, upload.array('photos'), imageController.uploadPetImage)
 

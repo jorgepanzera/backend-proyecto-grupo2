@@ -1,6 +1,7 @@
 
-import { Pet, Event, PetPhoto } from '../models/pet.model'
-import { queryDatabase } from './db';
+import { Pet, Event, PetPhoto, InsertPetDto } from '../models/pet.model'
+import {UpdateUserDto} from '../models/user.model'
+import { queryDatabase, QueryResult } from './db';
 
 // Para GetPetsById y GetPetsByUser
 interface PetQuery extends Pet  {
@@ -9,12 +10,14 @@ interface PetQuery extends Pet  {
 }
 
 // Para GetPetsById y GetPetsByUser
-export async function getPets(pet_id: number, username: string): Promise<Pet[]> {
+export async function getPets(pet_id: number, username: string, pet_type: number, breed_id:number): Promise<Pet[]> {
   
   // TODO filtro por tipo mascota y raza (pet_type and breed)
 
   pet_id = pet_id || 0
   username = username || ""
+  pet_type = pet_type || 0
+  breed_id = breed_id || 0
 
   let query = `select a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
 	                a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code,
@@ -25,7 +28,9 @@ export async function getPets(pet_id: number, username: string): Promise<Pet[]> 
                 join pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
                 join pet_status d on d.status_id = a.pet_status
                 where 1=1
-                and (pet_id = ${pet_id} or ${pet_id} = 0)`
+                and (pet_id = ${pet_id} or ${pet_id} = 0)
+                and (a.pet_type = ${pet_type} or ${pet_type} = 0)
+                and (a.breed_id = ${breed_id} or ${breed_id} = 0)`
   
   if (username !== "") {
     query += ` and (a.owner_user = "${username}" )`
@@ -99,12 +104,37 @@ export async function getPets(pet_id: number, username: string): Promise<Pet[]> 
     return pets;
 }
   
-async function createPet(pet: Pet): Promise<Pet> {
-  const query = `INSERT INTO pet (name, owner_user) VALUES ("${pet.name}", "${pet.owner}")`;
+async function createPet(pet: InsertPetDto): Promise<Pet> {
+
+  // Traer datos del owner para formar el QR
+  const queryUser = `SELECT email, mobile_number from user where username = "${pet.owner_user}"`
+
+  let userResult: QueryResult<UpdateUserDto> = await queryDatabase<UpdateUserDto>(queryUser)
+
+  if (userResult.results.length === 0) {
+    throw new Error('Error obteniendo datos de usuario para formar QR');
+  }
+
+  const qr_code = pet.owner_user + "-" + userResult.results[0].email + "-" + userResult.results[0].mobile_number
+  const pet_status = 1
+
+  // Dar de alta la mascota
+  const query = `INSERT INTO pet (name, owner_user, pet_type, breed_id, qr_code, pet_status)
+                  VALUES("${pet.name}", "${pet.owner_user}", ${pet.pet_type}, ${pet.breed_id}, "${qr_code}", ${pet_status})`
+  
+  console.log(query)
 
   await queryDatabase<void>(query);
 
-  const fetchQuery = `SELECT * FROM pet WHERE pet_id = LAST_INSERT_ID()`;
+  // Devolver la mascota ingresada
+  const fetchQuery = `SELECT a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
+	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code
+                    FROM pet a
+                    JOIN pet_type b on b.id = a.pet_type
+                    JOIN pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
+                    JOIN pet_status d on d.status_id = a.pet_status
+                    WHERE a.pet_id = LAST_INSERT_ID()`;
+                
 
   const { results } = await queryDatabase<Pet>(fetchQuery);
 

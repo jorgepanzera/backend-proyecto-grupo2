@@ -1,3 +1,4 @@
+import { IsNotEmpty, IsIn, IsInt } from 'class-validator';
 
 export interface Pet {
   pet_id: number;
@@ -47,88 +48,18 @@ export interface Message {
   message: string
 }
 
+export class InsertPetDto {
+  @IsNotEmpty()
+  name!: string;
 
+  @IsNotEmpty()
+  owner_user!: string;
 
-/* class-validator para agregarle validaciones a las interfaces */
-/*
-import { IsString, IsEmail, MinLength } from 'class-validator';
+  @IsNotEmpty()
+  @IsIn([1, 2])
+  pet_type!: number;
 
-class User {
-  @IsString()
-  username: string;
-
-  @IsString()
-  @MinLength(6)
-  password: string;
-
-  @IsString()
-  @IsEmail()
-  email: string;
-
-  // Other properties and methods
+  @IsNotEmpty()
+  @IsInt()
+  breed_id!: number;
 }
-
-const createUser = async (req, res) => {
-  try {
-    const userData = req.body;
-
-    const user = new User();
-    Object.assign(user, userData); // Assign the user data to the user object
-
-    // Validate the user object
-    const errors = await validate(user);
-
-    if (errors.length > 0) {
-      // If there are validation errors, return the error response
-      return res.status(400).json({ error: errors });
-    }
-
-    // Save the user to the database
-    // ...
-
-    // Return success response
-    return res.status(201).json({ message: 'User created successfully' });
-  } catch (error) {
-    // Handle other errors
-    console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-*/
-/*
-const pets: Pet[] = [
-  {
-    id: 1,
-    name: 'Buddy',
-    state: 'active',
-    owner: 'Alice',
-    walks: [
-      { date: new Date('2022-01-01'), duration: 30, distance: 2.5 },
-      { date: new Date('2022-01-02'), duration: 45, distance: 3.5 },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Charlie',
-    state: 'inactive',
-    owner: 'Bob',
-    walks: [
-      { date: new Date('2022-02-01'), duration: 20, distance: 1.5 },
-      { date: new Date('2022-02-02'), duration: 25, distance: 2.0 },
-    ],
-  },
-  {
-    id: 3,
-    name: 'Daisy',
-    state: 'active',
-    owner: 'Carol',
-    walks: [
-      { date: new Date('2022-03-01'), duration: 40, distance: 3.0 },
-      { date: new Date('2022-03-02'), duration: 35, distance: 2.5 },
-    ],
-  },
-];
-
-export default { pets }
-*/

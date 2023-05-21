@@ -11,7 +11,7 @@ export const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-interface QueryResult<T> {
+export interface QueryResult<T> {
   results: T[];
 }
 

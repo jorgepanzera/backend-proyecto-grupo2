@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { Pet } from '../models/pet.model'
+import { Pet, InsertPetDto } from '../models/pet.model'
 import service from '../services/pet.services'
-//import handleFileUpload from '../middleware/storage.middle'
+import { validate } from 'class-validator';
 
 
 const getAllPets = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    return res.json(await service.getPets(0,""))
+    return res.json(await service.getPets(0,"",0,0))
 
   } catch (error) {
     next(error);
@@ -18,7 +18,7 @@ const getPetById = async (req: Request, res: Response, next: NextFunction) => {
   const targetId = parseInt(req.params.id)
   
   try {
-    return res.json(await service.getPets(targetId,""))
+    return res.json(await service.getPets(targetId,"",0,0))
 
   } catch (error) {
     next(error);
@@ -29,61 +29,55 @@ const getPetsByUser = async (req: Request, res: Response, next: NextFunction) =>
   const targetUser = req.params.user
   
   try {
-    return res.json(await service.getPets(0,targetUser))
+    return res.json(await service.getPets(0,targetUser,0,0))
 
   } catch (error) {
     next(error);
   }
 }
 
-const createPet = async (req: Request, res: Response, next: NextFunction) => { 
-
-  // para recibir desde form-data tanto el json como los files
-  const petData: Pet = JSON.parse(req.body.data)
+const getPetsByTypeBreed = async (req: Request, res: Response, next: NextFunction) => {
+  const targetType = parseInt(req.params.type)
+  const targetBreed = parseInt(req.params.breed)
   
-  console.log(JSON.parse(req.body.data))
-  console.log(req.files)
+  try {
+    return res.json(await service.getPets(0,"",targetType,targetBreed))
 
-
-  return res.json(petData)
-
+  } catch (error) {
+    next(error);
+  }
 }
 
-/*
-****** Obtener aqui el req.body en petData y el req.files en una variable Express.Multer.File[]
-****** pasar ambas al service.createPet y alli guardar en base el petData y en cloud storage usando handleFileUpload
-const createPet = async (req: Request, res: Response) => {
+
+
+const createPet = async (req: Request, res: Response, next: NextFunction) => { 
+
+  const petData: InsertPetDto = req.body;
+
   try {
-    // Extract basic pet data from the JSON payload
-    const { name, age, breed } = req.body;
+    
+    // Create a new instance of InsertPetDto para validar
+    let petInsert = new InsertPetDto();
+    petInsert.name = petData.name;
+    petInsert.owner_user = petData.owner_user;
+    petInsert.pet_type = petData.pet_type;
+    petInsert.breed_id = petData.breed_id;
 
-    // Create a new instance of the Pet model with basic pet data
-    const newPet = new Pet({ name, age, breed });
-
-    // Iterate over the array of photos
-    for (const file of req.files as Express.Multer.File[]) {
-      // Handle each file individually (e.g., store it in a file system, upload to a cloud storage service, etc.)
-      const fileUrl = await handleFileUpload(file);
-
-      // Create a new instance of the Photo model with the file URL
-      const newPhoto = new Photo({ url: fileUrl });
-
-      // Add the new photo to the pet's photo collection
-      newPet.photos.push(newPhoto);
+    // Validar datos de entrada
+    const errors = await validate(petInsert);
+    if (errors.length > 0) {
+      // Errores de validacion
+      return res.status(400).json({ errors: errors.map((error) => error.toString()) });
+    }  else {
+      // si paso validaciones de input, voy a crearlo en bd
+      const pet = await service.createPet(petInsert)
+      return res.status(200).send(pet)
     }
-
-    // Save the new pet instance to the database
-    await newPet.save();
-
-    // Return the created pet object in the response
-    return res.status(201).json(newPet);
-  } catch (error) {
-    // Handle any errors and return an appropriate response
-    return res.status(500).json({ message: 'Failed to create pet', error: error.message });
+  } catch(error) {
+    next(error)
   }
-};
 
-*/
+}
 
 
 const updatePet = (req: Request, res: Response, next: NextFunction) => {
@@ -96,7 +90,7 @@ const deletePet = (req: Request, res: Response, next: NextFunction) => {
   res.json({ targetId })
 }
 
-export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet}
+export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed}
 
 /* CON BD
 const getAllPets = (req: Request, res: Response, next: NextFunction) => {

@@ -21,15 +21,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/pets/token",
+							"raw": "http://localhost:3000/pets",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"pets",
-								"token"
+								"pets"
 							]
 						}
 					},
@@ -111,25 +110,13 @@
 							}
 						],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "photos",
-									"type": "file",
-									"src": "/D:/test/pets/Mascotas1.jpg"
-								},
-								{
-									"key": "photos",
-									"type": "file",
-									"src": "/D:/test/pets/Mascotas2.jpg"
-								},
-								{
-									"key": "body",
-									"value": "   {\n        \"owner\": \"testfreeuser\",\n        \"name\": \"Tom\",\n        \"pet_type\": 2,\n        \"type\": \"CAT\",\n        \"breed_id\": 1001,\n        \"breed\": \"Domestic Shorthair\",\n        \"qr_code\": \"qrcode43sdfsdf3\",\n        \"status_id\": 2,\n        \"status\": \"Perdida\"\n        }",
-									"type": "text",
-									"disabled": true
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Doggy\",\r\n    \"owner_user\":\"testfreeuser\",\r\n    \"pet_type\":1,\r\n    \"breed_id\":6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "http://localhost:3000/pets",
@@ -159,8 +146,83 @@
 				{
 					"name": "uploadPetPhoto",
 					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDQ1MTQzOCwiZXhwIjoxNjg4MDUxNDM4fQ.G_ZALvo3W9VE-7XOpdzv4gnWu6JSNQrrIHrMsUeZzyM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "/D:/test/pets/pets3.PNG"
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "/D:/test/pets/Mascotas2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/pets/photo/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pets",
+								"photo",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetByTypeBreed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDcxMTkyOSwiZXhwIjoxNjg4MzExOTI5fQ.OY6Wtz4vKGwExw7YnN68CFUHcH5D721hMbdqKB_HIj4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/pets/type/1/breed/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pets",
+								"type",
+								"1",
+								"breed",
+								"3"
+							]
+						}
 					},
 					"response": []
 				}
