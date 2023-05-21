@@ -32,7 +32,7 @@ CREATE TABLE `photo` (
   PRIMARY KEY (`photo_id`),
   KEY `fk_photo_pet_idx` (`pet_id`),
   CONSTRAINT `fk_photo_pet` FOREIGN KEY (`pet_id`) REFERENCES `pet` (`pet_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `photo` (
 
 LOCK TABLES `photo` WRITE;
 /*!40000 ALTER TABLE `photo` DISABLE KEYS */;
-INSERT INTO `photo` VALUES (1,1,0,'https://myphotos.com/1','2023-05-01 18:36:29',0),(2,1,0,'https://myphotos.com/2','2023-05-01 18:36:30',0),(3,2,0,'https://myphotos.com/12','2023-05-01 18:36:30',0),(4,2,0,'https://myphotos.com/22','2023-05-01 18:36:30',0),(5,4,0,'https://myphotos.com/14','2023-05-01 18:36:30',0),(6,4,8,'https://myphotos.com/24_81','2023-05-01 18:36:30',0),(7,4,8,'https://myphotos.com/24_82','2023-05-01 18:36:30',0);
+INSERT INTO `photo` VALUES (1,1,0,'https://myphotos.com/1','2023-05-01 18:36:29',1),(2,1,0,'https://myphotos.com/2','2023-05-01 18:36:30',0),(3,2,0,'https://myphotos.com/12','2023-05-01 18:36:30',1),(4,2,0,'https://myphotos.com/22','2023-05-01 18:36:30',0),(5,4,0,'https://myphotos.com/14','2023-05-01 18:36:30',1),(6,4,8,'https://myphotos.com/24_81','2023-05-01 18:36:30',0),(7,4,8,'https://myphotos.com/24_82','2023-05-01 18:36:30',0),(32,3,0,'https://storage.googleapis.com/mapet_backend_bucket/05d17301-bca3-4d68-b9fb-6f43b40a3b96-Mascotas2.jpg','2023-05-21 16:01:33',1),(33,3,0,'https://storage.googleapis.com/mapet_backend_bucket/8a83da67-2598-40cb-89d6-5bf731a66a77-pets3.PNG','2023-05-21 16:01:34',0);
 /*!40000 ALTER TABLE `photo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-20 19:53:40
+-- Dump completed on 2023-05-21 16:35:47
