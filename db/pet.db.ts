@@ -2,12 +2,16 @@
 import { Pet, Event, PetPhoto } from '../models/pet.model'
 import { queryDatabase } from './db';
 
+// Para GetPetsById y GetPetsByUser
 interface PetQuery extends Pet  {
   cant_events: number,
   cant_photos: number
 }
 
-export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
+// Para GetPetsById y GetPetsByUser
+export async function getPets(pet_id: number, username: string): Promise<Pet[]> {
+  
+  // TODO filtro por tipo mascota y raza (pet_type and breed)
 
   pet_id = pet_id || 0
   username = username || ""
@@ -28,7 +32,7 @@ export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
   }
                  
 
-  const queryResult = await queryDatabase<PetQuery>(query); // Quizas haya que hacer una interface Pets + countWalks para que esto funcione, y queryDatabase<PetExtended>
+  const queryResult = await queryDatabase<PetQuery>(query); 
   
   const pets: Pet[] = [];
   
@@ -54,16 +58,20 @@ export async function getPets(pet_id: number, username:string): Promise<Pet[]> {
     // Si tiene photos, lleno el array
     if (pet.cant_photos > 0) {
 
-        const photosQuery = `select photo_id, url, main_photo, created_date
+      let photosQuery = `select photo_id, url, main_photo, created_date
                             from photo
                             where 1=1
                             and pet_id = ${pet.pet_id}
-                            and event_id = 0
-                            order by created_date`
+                            and event_id = 0`
+      if (pet_id == 0) {
+        photosQuery += ` and main_photo = 1` // si no es consulta especifica por pet_id, traigo solo la foto principal   
+      }
+      photosQuery += ` order by created_date`
+   
       
-        const photosResult = await queryDatabase<PetPhoto>(photosQuery);
+      const photosResult = await queryDatabase<PetPhoto>(photosQuery);
 
-        pet.photos = photosResult.results;
+      pet.photos = photosResult.results;
 
     }
   

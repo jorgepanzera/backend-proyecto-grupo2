@@ -1,5 +1,5 @@
 import controller from '../controllers/pet.controller.';
-import imageController from '../controllers/image.controller'
+import imageController from '../controllers/photo.controller'
 import express from 'express';
 import { authenticateJWT } from '../middleware/jwt.middle';
 import multer from 'multer';

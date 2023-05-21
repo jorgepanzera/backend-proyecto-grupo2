@@ -1,7 +1,7 @@
-import db from '../db/photo.db'
-import { PetPhoto, EventPhoto } from '../models/pet.model'
-import { handleFileUpload } from '../middleware/storage.middle'
-import multer from 'multer';
+import db from "../db/photo.db";
+import { PetPhoto, EventPhoto } from "../models/pet.model";
+import { handleFileUpload } from "../middleware/storage.middle";
+import multer from "multer";
 
 /*
 const createPetPhoto = async (pet_id: number, photos: Express.Multer.File[]):Promise<PetPhoto[]> => {
@@ -24,22 +24,18 @@ const createPetPhoto = async (pet_id: number, photos: Express.Multer.File[]):Pro
 }
 */
 
-/* HACER UN createPetPhoto de a una sola foto, sino no se resuelven los promises */
-const createPetPhoto = async (pet_id: number, photos: Express.Multer.File[]): Promise<PetPhoto[]> => {
-    const petPhotos: PetPhoto[] = await Promise.all(
-      photos.map(async (photo) => {
-          const resultUrl = await handleFileUpload(photo);
-          console.log(`tengo url ${resultUrl}`)
-          const createdPhoto = await db.createPetPhoto(pet_id, resultUrl);
-          console.log(`tengo PetPhoto ${createdPhoto.photo_id}`)
-        return createdPhoto;
-      })
-    );
-  
-    console.log('salgo de services photo')
-    return petPhotos;
-  };
+/* Procesar todas las fotos del array, primero obtener url desde el cloud storage (handleFileUpload), 
+luego guardar en BD (createPetPhoto) */
+const createPetPhoto = async ( pet_id: number,  photos: Express.Multer.File[]): Promise<PetPhoto[]> => {
+  const petPhotos: PetPhoto[] = await Promise.all(
+    photos.map(async (photo) => {
+      const resultUrl = await handleFileUpload(photo);
+      const createdPhoto = await db.createPetPhoto(pet_id, resultUrl);
+      return createdPhoto;
+    })
+  );
 
+  return petPhotos;
+};
 
-export default { createPetPhoto }
-
+export default { createPetPhoto };

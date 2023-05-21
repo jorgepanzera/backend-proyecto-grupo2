@@ -12,8 +12,6 @@ type File = Express.Multer.File;
 export const handleFileUpload = (file: Express.Multer.File): Promise<string> => {
   return new Promise((resolve, reject) => {
     // Provide your Google Cloud Storage credentials path or object
-    console.log('storage')
-
     const storage = new Storage({
       keyFilename: './.googlecredentials.json',
     });
