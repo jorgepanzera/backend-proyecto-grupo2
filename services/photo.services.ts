@@ -28,12 +28,15 @@ const createPetPhoto = async (pet_id: number, photos: Express.Multer.File[]):Pro
 const createPetPhoto = async (pet_id: number, photos: Express.Multer.File[]): Promise<PetPhoto[]> => {
     const petPhotos: PetPhoto[] = await Promise.all(
       photos.map(async (photo) => {
-        const resultUrl = await handleFileUpload(photo);
-        const createdPhoto = await db.createPetPhoto(pet_id, resultUrl);
+          const resultUrl = await handleFileUpload(photo);
+          console.log(`tengo url ${resultUrl}`)
+          const createdPhoto = await db.createPetPhoto(pet_id, resultUrl);
+          console.log(`tengo PetPhoto ${createdPhoto.photo_id}`)
         return createdPhoto;
       })
     );
   
+    console.log('salgo de services photo')
     return petPhotos;
   };
 

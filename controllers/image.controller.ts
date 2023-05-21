@@ -19,7 +19,8 @@ const uploadPetImage = async (req: Request, res: Response, next: NextFunction) =
     const files: Express.Multer.File[] = req.files;
   
   try {
-      service.createPetPhoto(petId,files)
+    const petPhotos = await service.createPetPhoto(petId, files)
+    return res.json(petPhotos)
       /*
       const fileUrls = await Promise.all(files.map((file: Express.Multer.File) => handleFileUpload(file)));
   
