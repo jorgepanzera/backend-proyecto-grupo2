@@ -57,3 +57,7 @@ export class UpdateUserDto {
   @IsOptional()
   created_time?: Date;
 }
+
+export interface UserPhoto {
+  url: string;
+}

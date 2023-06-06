@@ -3,7 +3,8 @@
 		"_postman_id": "7e0ecc19-4ebd-443e-955d-9de7ae6622c4",
 		"name": "API Proyecto Full Stack",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12622857"
+		"_exporter_id": "12622857",
+		"_collection_link": "https://backend-mapet.postman.co/workspace/Mapet-Workspace~daa63c59-5a5e-4954-8314-a798a39f6d60/collection/12622857-7e0ecc19-4ebd-443e-955d-9de7ae6622c4?action=share&creator=12622857&source=collection_link"
 	},
 	"item": [
 		{
@@ -395,6 +396,43 @@
 							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODA5NjA4MDEsImV4cCI6MTY4NDU2MDgwMX0.zRY9yUw3wa6-emXLgVFerpbQCJ5_2j_IC9i1O6_KzgM\"\n}"
 						}
 					]
+				},
+				{
+					"name": "uploadUserPhoto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4NjAwODg4OSwiZXhwIjoxNjg5NjA4ODg5fQ.Le7Wir7BysiV7L9CAJXkuIkw8w8X1fmwo3C3ZJGZ0Rs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photos",
+									"type": "file",
+									"src": "/D:/test/pets/userimage.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/photo/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"photo",
+								"admin"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

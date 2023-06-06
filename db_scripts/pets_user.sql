@@ -29,6 +29,7 @@ CREATE TABLE `user` (
   `mobile_number` varchar(45) NOT NULL,
   `type` int NOT NULL,
   `created_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `photo_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `email_user_UK` (`email`),
@@ -43,7 +44,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','MyPetPassword2023','mail2@gmail.com','5982095624239',4,'2023-04-09 15:32:40'),('Jorge','12345678','mail1@gmail.com','undefined',2,'2023-05-12 22:50:57'),('Pp','12345678','kajdfkjdk@pepe.com','undefined',2,'2023-05-12 23:04:06'),('testfreeuser','FreeTestUser2023','panzera.jorge@gmail.com','0342095634339',1,'2023-04-23 15:30:57');
+INSERT INTO `user` VALUES ('admin','MyPetPassword2023','mail2@gmail.com','5982095624239',4,'2023-04-09 15:32:40',NULL),('Jorge','12345678','mail1@gmail.com','undefined',2,'2023-05-12 22:50:57',NULL),('Pp','12345678','kajdfkjdk@pepe.com','undefined',2,'2023-05-12 23:04:06',NULL),('ppe2','12345678','otro@pepe.com','undefined',2,'2023-05-16 00:20:15',NULL),('testfreeuser','FreeTestUser2023','panzera.jorge@gmail.com','0342095634339',1,'2023-04-23 15:30:57',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-15 21:10:13
+-- Dump completed on 2023-06-05 21:15:39

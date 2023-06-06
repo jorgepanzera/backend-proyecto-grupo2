@@ -1,5 +1,6 @@
 import {queryDatabase} from './db'
-import {PetPhoto} from '../models/pet.model'
+import { PetPhoto } from '../models/pet.model'
+import { User } from '../models/user.model';
 
 async function createPetPhoto(pet_id: number, photoUrl:string): Promise<PetPhoto> {
 
@@ -33,5 +34,24 @@ async function createPetPhoto(pet_id: number, photoUrl:string): Promise<PetPhoto
   
     return results[0];
 }
+
+
+async function createUserPhoto(username: string, photoUrl:string): Promise<User> {
+
+    // Insertar Foto
+    const query = `UPDATE user SET photo_url = "${photoUrl} WHERE username = "${username}"`
   
-export default {createPetPhoto}
+    await queryDatabase<void>(query);
+  
+    // Fetch the updated User
+    const fetchQuery = `SELECT * FROM user WHERE username = "${username}"`
+    const { results } = await queryDatabase<User>(fetchQuery);
+    
+    if (results.length === 0) {
+        throw new Error('Photo not found'); // Throw an error if the user was not found
+    }
+  
+    return results[0];
+}
+  
+export default {createPetPhoto, createUserPhoto}
