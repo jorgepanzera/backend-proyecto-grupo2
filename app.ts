@@ -68,7 +68,7 @@ app.use((req, res, next) => {
   
 /* Start API */
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.API_SERVER_PORT || 8000;
   
   app.listen(port, () => {
     console.info(`Application running at port ${port}`)

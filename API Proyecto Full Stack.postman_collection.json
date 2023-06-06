@@ -22,12 +22,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/pets",
+							"raw": "http://localhost:8000/pets",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"pets"
 							]
@@ -58,15 +58,15 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/pets/4",
+							"raw": "http://localhost:8000/pets/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"pets",
-								"4"
+								"3"
 							]
 						}
 					},
@@ -84,12 +84,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/pets/user/testfreeuser",
+							"raw": "http://localhost:8000/pets/user/testfreeuser",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"pets",
 								"user",
@@ -112,7 +112,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Doggy\",\r\n    \"owner_user\":\"testfreeuser\",\r\n    \"pet_type\":1,\r\n    \"breed_id\":6\r\n}",
+							"raw": "{\r\n    \"name\":\"Wifi\",\r\n    \"owner_user\":\"testfreeuser\",\r\n    \"pet_type\":1,\r\n    \"breed_id\":22\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,12 +120,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/pets",
+							"raw": "http://localhost:8000/pets",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"pets"
 							]
@@ -253,12 +253,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users",
+							"raw": "http://localhost:8000/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"users"
 							]
@@ -295,12 +295,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/login",
+							"raw": "http://localhost:8000/users/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"users",
 								"login"
@@ -419,12 +419,12 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/photo/admin",
+							"raw": "http://localhost:8000/users/photo/admin",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"users",
 								"photo",
@@ -451,12 +451,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/util/pettype",
+							"raw": "http://localhost:8000/util/pettype",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"util",
 								"pettype"
@@ -477,12 +477,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/util/petbreed/1",
+							"raw": "http://localhost:8000/util/petbreed/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"util",
 								"petbreed",
@@ -500,12 +500,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/ping",
+					"raw": "http://localhost:8000/ping",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "8000",
 					"path": [
 						"ping"
 					]

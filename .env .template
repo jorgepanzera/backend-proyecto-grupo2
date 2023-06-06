@@ -1,0 +1,32 @@
+
+
+# DB_URL=mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net
+
+# ambiente actual
+NODE_ENV=
+
+# Server Port
+API_SERVER_PORT=
+
+# Enable CORS in API Server
+ENABLE_CORS=
+
+# URL Front detalle mascota
+FRONT_PET_DETAIL_URL=
+
+# JWT secret
+JWT_SECRET=
+
+# JWT secret Default
+DEFAULT_AUTHENTICATION_TOKEN= 
+
+## DB
+# Local
+MYSQL_HOST=
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_DATABASE=
+
+
+
+#DB_URL=mongodb://0.0.0.0:27017/

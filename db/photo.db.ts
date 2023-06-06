@@ -39,18 +39,21 @@ async function createPetPhoto(pet_id: number, photoUrl:string): Promise<PetPhoto
 async function createUserPhoto(username: string, photoUrl:string): Promise<User> {
 
     // Insertar Foto
-    const query = `UPDATE user SET photo_url = "${photoUrl} WHERE username = "${username}"`
+    const query = `UPDATE user SET photo_url = "${photoUrl}" WHERE username = "${username}"`
   
+    console.log(`update: ${query}`)
     await queryDatabase<void>(query);
   
     // Fetch the updated User
     const fetchQuery = `SELECT * FROM user WHERE username = "${username}"`
+    console.log(`select: ${fetchQuery}`)
     const { results } = await queryDatabase<User>(fetchQuery);
     
     if (results.length === 0) {
         throw new Error('Photo not found'); // Throw an error if the user was not found
     }
   
+    console.log(results)
     return results[0];
 }
   
