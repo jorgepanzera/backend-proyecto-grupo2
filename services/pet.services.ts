@@ -1,5 +1,5 @@
 import db from '../db/pet.db'
-import { Pet, InsertPetDto } from '../models/pet.model'
+import { Pet, InsertPetDto, UpdatePetDto } from '../models/pet.model'
 
 const getPets =  async (pet_id: number, username:string, pet_type:number, breed_id: number) : Promise<Pet[]> => {
 
@@ -9,11 +9,18 @@ const getPets =  async (pet_id: number, username:string, pet_type:number, breed_
 
 }
 
-const createPet =async (pet:InsertPetDto): Promise<Pet> => {
+const createPet = async (pet:InsertPetDto): Promise<Pet> => {
     
-    const createdPet = db.createPet(pet)
+    const createdPet = await db.createPet(pet)
     return createdPet
 
 }
 
-export default { getPets, createPet }
+const updatePet = async (pet_id: number, pet:UpdatePetDto): Promise<Pet> => {
+
+    const updatedPet = await db.updatePet(pet_id, pet)
+    return updatedPet
+    
+}
+
+export default { getPets, createPet, updatePet }

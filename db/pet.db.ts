@@ -1,5 +1,5 @@
 
-import { Pet, Event, PetPhoto, InsertPetDto } from '../models/pet.model'
+import { Pet, Event, PetPhoto, InsertPetDto, UpdatePetDto } from '../models/pet.model'
 import {UpdateUserDto} from '../models/user.model'
 import { queryDatabase, QueryResult } from './db';
 
@@ -145,5 +145,60 @@ async function createPet(pet: InsertPetDto): Promise<Pet> {
   return results[0];
 }
 
+async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
+
+  let moreThanOneData:boolean = false
+
+  // Actualizar la mascota
+
+  if (pet.name || pet.breed_id || pet.pet_status) {
+
+    let queryUpdate = `UPDATE pet SET `
+    if (pet.pet_status) {
+     queryUpdate += ` pet_status = ${pet.pet_status}`
+     moreThanOneData = true
+    }
+    if (pet.breed_id) {
+      if (moreThanOneData) {
+        queryUpdate += `,  `
+      }
+     queryUpdate += ` breed_id = ${pet.breed_id}`
+     moreThanOneData = true
+    }
+    if (pet.name) {
+      if (moreThanOneData) {
+        queryUpdate += `,  `
+      }      
+     queryUpdate += ` name = "${pet.name}"`
+     moreThanOneData = true
+    }
+    queryUpdate += ` WHERE pet_id = ${pet_id}`
+
+    await queryDatabase<void>(queryUpdate);
+
+  }
+
+
+
+  // Devolver la mascota actualizada
+  const fetchQuery = `SELECT a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
+	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code
+                    FROM pet a
+                    JOIN pet_type b on b.id = a.pet_type
+                    JOIN pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
+                    JOIN pet_status d on d.status_id = a.pet_status
+                    WHERE a.pet_id = ${pet_id}`;
+                
+
+  const { results } = await queryDatabase<Pet>(fetchQuery);
+
+  if (results.length === 0) {
+    throw new Error('Failed to fetch the created pet');
+  }
+
+  return results[0];  
+  
+}
+
  
-  export default { getPets, createPet }
+  export default { getPets, createPet, updatePet }

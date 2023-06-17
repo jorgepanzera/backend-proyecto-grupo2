@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsIn, IsInt } from 'class-validator';
+import { IsNotEmpty, IsIn, IsInt,IsDefined, ValidateIf } from 'class-validator';
+import { Transform } from 'class-transformer'
 
 export interface Pet {
   pet_id: number;
@@ -63,3 +64,22 @@ export class InsertPetDto {
   @IsInt()
   breed_id!: number;
 }
+
+
+export class UpdatePetDto {
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name) son requeridos para updatePet' })
+  @Transform(({ value }) => value || undefined)
+  name?: string;
+
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name) son requeridos para updatePet' })
+  @Transform(({ value }) => value || undefined)
+  breed_id?: number;
+
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name) son requeridos para updatePet' })
+  @Transform(({ value }) => value || undefined)
+  pet_status?: number;
+}
+

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { Pet, InsertPetDto } from '../models/pet.model'
+import { Pet, InsertPetDto, UpdatePetDto } from '../models/pet.model'
 import service from '../services/pet.services'
 import { validate } from 'class-validator';
 
@@ -80,9 +80,36 @@ const createPet = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 
-const updatePet = (req: Request, res: Response, next: NextFunction) => {
-    const targetId = parseInt(req.params.id)
-  res.json({ targetId })
+const updatePet = async (req: Request, res: Response, next: NextFunction) => {
+
+  const petId = parseInt(req.params.id)
+  const petData: UpdatePetDto = req.body;
+
+  try {
+    
+    /*
+    // Create a new instance of InsertPetDto para validar
+    let petInsert = new InsertPetDto();
+    petInsert.name = petData.name;
+    petInsert.owner_user = petData.owner_user;
+    petInsert.pet_type = petData.pet_type;
+    petInsert.breed_id = petData.breed_id;
+    */
+
+    // Validar datos de entrada
+    const errors = await validate(petData);
+    if (errors.length > 0) {
+      // Errores de validacion
+      return res.status(400).json({ errors: errors.map((error) => error.toString()) });
+    }  else {
+      // si paso validaciones de input, voy a actualizarlo en bd
+      const pet = await service.updatePet(petId,petData)
+      return res.status(200).send(pet)
+    }
+  } catch(error) {
+    next(error)
+  }
+
 }
 
 const deletePet = (req: Request, res: Response, next: NextFunction) => {
@@ -92,38 +119,3 @@ const deletePet = (req: Request, res: Response, next: NextFunction) => {
 
 export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed}
 
-/* CON BD
-const getAllPets = (req: Request, res: Response, next: NextFunction) => {
-    const pets = await getAllPets();
-    res.json(pets);
-  });
-  
-  app.get('/pets/:id', authenticateJWT, async (req, res) => {
-    const id = parseInt(req.params.id);
-    const pet = await getPetById(id);
-    if (pet) {
-      res.json(pet);
-    } else {
-      res.sendStatus(404);
-    }
-  });
-  
-  app.post('/pets', authenticateJWT, async (req, res) => {
-    const pet = req.body;
-    const createdPet = await createPet(pet);
-    res.status(201).json(createdPet);
-  });
-  
-  app.put('/pets/:id', authenticateJWT, async (req, res) => {
-    const id = parseInt(req.params.id);
-    const pet = req.body;
-    const updatedPet = await updatePet(id, pet);
-    res.json(updatedPet);
-  });
-  
-  app.delete('/pets/:id', authenticateJWT, async (req, res) => {
-    const id = parseInt(req.params.id);
-    await deletePet(id);
-    res.sendStatus(204);
-  });
-  */
