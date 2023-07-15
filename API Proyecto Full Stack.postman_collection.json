@@ -17,7 +17,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4ODE3MTg2NCwiZXhwIjoxNjkxNzcxODY0fQ.oDrgI0PjQvZ2jKwnrt_vwGIrWP39vah2OAFN8vBqwvo",
 								"type": "text"
 							}
 						],
@@ -53,7 +53,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2ODM5MTM4NjEsImV4cCI6MTY4NzUxMzg2MX0.6W54mM_4aVkA7Q09vsw1vTAR2W0n5CnNH1m2inVNiLM",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY4ODgyMzE2NiwiZXhwIjoxNjkyNDIzMTY2fQ.LR7avP91FulhM_mRxB0WjVvop6_ttWo80NLWkU7nGOg",
 								"type": "text"
 							}
 						],
@@ -210,18 +210,80 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/pets/type/1/breed/3",
+							"raw": "http://localhost:8000/pets/type/1/breed/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"pets",
 								"type",
 								"1",
 								"breed",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePet",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4NzA0MTY0NCwiZXhwIjoxNjkwNjQxNjQ0fQ.4HZW7-WHyj5L-LMrWygZ_xWZTjGRfKZpFWh6CjK0TMk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pet_status\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/pets/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"pets",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetsByStatus",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY4OTQ2MDEwMiwiZXhwIjoxNjkzMDYwMTAyfQ.IPgKUjUZSNWPMmexz1Dt8qdHY9gUF2dbfpOlueQn0jE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/pets/status/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"pets",
+								"status",
+								"2"
 							]
 						}
 					},
@@ -287,7 +349,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"email\":\"mail2@gmail.com\", \"password\":\"MyPetPassword2023\"}",
+							"raw": "{ \"email\":\"panzera.jorge@gmail.com\", \"password\":\"FreeTestUser2023\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -341,12 +403,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:3000/token",
+									"raw": "http://localhost:8000/token",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "3000",
+									"port": "8000",
 									"path": [
 										"token"
 									],
@@ -429,6 +491,87 @@
 								"users",
 								"photo",
 								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY4OTQ2MDEwMiwiZXhwIjoxNjkzMDYwMTAyfQ.IPgKUjUZSNWPMmexz1Dt8qdHY9gUF2dbfpOlueQn0jE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"ppe2\",\r\n    \"password\":\"dfafd3dfs\",\r\n    \"email\": \"newmail@mymail.com\",\r\n    \"user_type\":2,\r\n    \"mobile_number\": 23234234343\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY4OTQ2MDEwMiwiZXhwIjoxNjkzMDYwMTAyfQ.IPgKUjUZSNWPMmexz1Dt8qdHY9gUF2dbfpOlueQn0jE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/users/testfreeuser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"testfreeuser"
 							]
 						}
 					},

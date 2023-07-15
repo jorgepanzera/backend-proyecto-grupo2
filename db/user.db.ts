@@ -30,4 +30,70 @@ async function createUser(user:InsertUserDto): Promise<User> {
   return results[0];
 }
 
-export default {verifyUser, createUser}
+
+async function getUser(username:string): Promise<User> {
+
+  // Fetch the newly created user
+   const fetchQuery = `SELECT * FROM user WHERE username = "${username}"`;
+   const { results } = await queryDatabase<User>(fetchQuery);
+  
+      if (results.length === 0) {
+        throw new Error('User not found'); // Throw an error if the user was not found
+      }
+
+  return results[0];
+}
+
+async function updateUser(user: UpdateUserDto): Promise<User> {
+
+  let moreThanOneData:boolean = false
+
+  // Actualizar datos del usuario
+
+    let queryUpdate = `UPDATE user SET `
+    if (user.password) {
+     queryUpdate += ` password = "${user.password}"`
+     moreThanOneData = true
+    }
+    if (user.mobile_number) {
+      if (moreThanOneData) {
+        queryUpdate += `,  `
+      }
+     queryUpdate += ` mobile_number = "${user.mobile_number}"`
+     moreThanOneData = true
+    }
+    if (user.email) {
+      if (moreThanOneData) {
+        queryUpdate += `,  `
+      }      
+     queryUpdate += ` email = "${user.email}"`
+     moreThanOneData = true
+  }
+  if (user.user_type) {
+    if (moreThanOneData) {
+      queryUpdate += `,  `
+    }      
+   queryUpdate += ` type = ${user.user_type}`
+   moreThanOneData = true
+  }
+    queryUpdate += ` WHERE username = "${user.username}"`
+
+    await queryDatabase<void>(queryUpdate);
+
+    // Devolver la mascota actualizada
+    const fetchQuery = `SELECT     username, password,  type as user_type,  email,  mobile_number, created_time
+                      FROM user 
+                      WHERE username = "${user.username}"`;
+
+
+  const { results } = await queryDatabase<User>(fetchQuery);
+
+  if (results.length === 0) {
+    throw new Error('Failed to fetch the updated user');
+  }
+
+  return results[0];  
+  
+  }
+
+export default {verifyUser, createUser, updateUser, getUser}

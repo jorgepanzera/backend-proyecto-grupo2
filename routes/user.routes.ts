@@ -13,5 +13,7 @@ const upload = multer({ dest: 'uploads/' });
 router.post('/login', controller.createToken)
 router.post("/", controller.createUser)
 router.post('/photo/:id', authenticateJWT, upload.array('photos'), imageController.uploadUserImage)
+router.patch("/", authenticateJWT, controller.updateUser)
+router.get("/:username",authenticateJWT,controller.getUser)
 
 export = router;

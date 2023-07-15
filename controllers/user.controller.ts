@@ -50,4 +50,38 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export default { createToken, createUser };
+
+const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+
+  const userData: UpdateUserDto = req.body;
+
+  try {
+
+    // Validar datos de entrada
+    const errors = await validate(userData);
+    if (errors.length > 0) {
+      // Errores de validacion
+      return res.status(400).json({ errors: errors.map((error) => error.toString()) });
+    }  else {
+      // si paso validaciones de input, voy a actualizarlo en bd
+      const pet = await services.updateUser(userData)
+      return res.status(200).send(pet)
+    }
+  } catch(error) {
+    next(error)
+  }
+
+}
+
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
+  const targetUser = req.params.username
+  
+  try {
+    return res.json(await services.getUser(targetUser))
+
+  } catch (error) {
+    next(error);
+  }
+}
+
+export default { createToken, createUser, updateUser, getUser};

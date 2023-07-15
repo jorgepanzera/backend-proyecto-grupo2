@@ -9,6 +9,7 @@ const upload = multer({ dest: 'uploads/' });
 
 router.post('/', authenticateJWT, upload.array('photos'), controller.createPet)
 router.get('/:id', authenticateJWT, controller.getPetById)
+router.get('/status/:pet_status', authenticateJWT, controller.getPetsByStatus)
 router.get('/user/:user', authenticateJWT, controller.getPetsByUser)
 router.get('/', authenticateJWT, controller.getAllPets)
 router.delete('/:id', authenticateJWT, controller.deletePet)

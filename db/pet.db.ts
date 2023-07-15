@@ -10,7 +10,7 @@ interface PetQuery extends Pet  {
 }
 
 // Para GetPetsById y GetPetsByUser
-export async function getPets(pet_id: number, username: string, pet_type: number, breed_id:number): Promise<Pet[]> {
+export async function getPets(pet_id: number, username: string, pet_type: number, breed_id:number, pet_status: number): Promise<Pet[]> {
   
   // TODO filtro por tipo mascota y raza (pet_type and breed)
 
@@ -18,6 +18,8 @@ export async function getPets(pet_id: number, username: string, pet_type: number
   username = username || ""
   pet_type = pet_type || 0
   breed_id = breed_id || 0
+  pet_status = pet_status || 0
+
 
   let query = `select a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
 	                a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code,
@@ -29,6 +31,7 @@ export async function getPets(pet_id: number, username: string, pet_type: number
                 join pet_status d on d.status_id = a.pet_status
                 where 1=1
                 and (pet_id = ${pet_id} or ${pet_id} = 0)
+                and (pet_status = ${pet_status} or ${pet_status} = 0)
                 and (a.pet_type = ${pet_type} or ${pet_type} = 0)
                 and (a.breed_id = ${breed_id} or ${breed_id} = 0)`
   
@@ -193,7 +196,7 @@ async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
   const { results } = await queryDatabase<Pet>(fetchQuery);
 
   if (results.length === 0) {
-    throw new Error('Failed to fetch the created pet');
+    throw new Error('Failed to fetch the updated pet');
   }
 
   return results[0];  

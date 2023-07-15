@@ -1,9 +1,9 @@
 import db from '../db/pet.db'
 import { Pet, InsertPetDto, UpdatePetDto } from '../models/pet.model'
 
-const getPets =  async (pet_id: number, username:string, pet_type:number, breed_id: number) : Promise<Pet[]> => {
+const getPets =  async (pet_id: number, username:string, pet_type:number, breed_id: number, pet_status: number) : Promise<Pet[]> => {
 
-    const pets = await db.getPets(pet_id, username, pet_type, breed_id)
+    const pets = await db.getPets(pet_id, username, pet_type, breed_id, pet_status)
 
     return pets
 

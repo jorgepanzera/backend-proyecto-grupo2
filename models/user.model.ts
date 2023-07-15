@@ -36,26 +36,24 @@ export class InsertUserDto {
 }
 
 export class UpdateUserDto {
-  @IsOptional()
-  username?: string;
+  @IsNotEmpty()
+  username!: string;
 
   @IsOptional()
-  password?: string;
+  password!: string;
+
+  @IsOptional()
+  mobile_number!: string;
 
   @IsEmail()
   @IsOptional()
-  email?: string;
-
-  @IsOptional()
-  mobile_number?: string;
+  email!: string;
 
   @IsInt()
   @Min(1)
   @IsOptional()
-  user_type?: number;
+  user_type!: number;
 
-  @IsOptional()
-  created_time?: Date;
 }
 
 export interface UserPhoto {

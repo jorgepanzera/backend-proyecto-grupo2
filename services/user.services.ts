@@ -16,4 +16,20 @@ const createUser = async (user: InsertUserDto) : Promise<User> => {
 
 }
 
-export default {verifyUser, createUser}
+const getUser = async (username: string) : Promise<User> => {
+
+  // Create a new instance of User
+  const result = await db.getUser(username)
+  return result
+
+}
+
+const updateUser = async (user: UpdateUserDto) : Promise<User> => {
+
+  // update an user
+  const result = await db.updateUser(user)
+  return result
+
+}
+
+export default {verifyUser, createUser, updateUser, getUser}

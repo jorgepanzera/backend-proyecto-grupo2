@@ -6,7 +6,19 @@ import { validate } from 'class-validator';
 
 const getAllPets = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    return res.json(await service.getPets(0,"",0,0))
+    return res.json(await service.getPets(0,"",0,0,0))
+
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+const getPetsByStatus = async (req: Request, res: Response, next: NextFunction) => {
+  const targetStatus = parseInt(req.params.pet_status)
+  
+  try {
+    return res.json(await service.getPets(0,"",0,0,targetStatus))
 
   } catch (error) {
     next(error);
@@ -18,7 +30,7 @@ const getPetById = async (req: Request, res: Response, next: NextFunction) => {
   const targetId = parseInt(req.params.id)
   
   try {
-    return res.json(await service.getPets(targetId,"",0,0))
+    return res.json(await service.getPets(targetId,"",0,0,0))
 
   } catch (error) {
     next(error);
@@ -29,7 +41,7 @@ const getPetsByUser = async (req: Request, res: Response, next: NextFunction) =>
   const targetUser = req.params.user
   
   try {
-    return res.json(await service.getPets(0,targetUser,0,0))
+    return res.json(await service.getPets(0,targetUser,0,0,0))
 
   } catch (error) {
     next(error);
@@ -41,7 +53,7 @@ const getPetsByTypeBreed = async (req: Request, res: Response, next: NextFunctio
   const targetBreed = parseInt(req.params.breed)
   
   try {
-    return res.json(await service.getPets(0,"",targetType,targetBreed))
+    return res.json(await service.getPets(0,"",targetType,targetBreed,0))
 
   } catch (error) {
     next(error);
@@ -117,5 +129,5 @@ const deletePet = (req: Request, res: Response, next: NextFunction) => {
   res.json({ targetId })
 }
 
-export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed}
+export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed, getPetsByStatus}
 
