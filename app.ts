@@ -73,3 +73,5 @@ app.use((req, res, next) => {
   app.listen(port, () => {
     console.info(`Application running at port ${port}`)
   });
+
+  export default app

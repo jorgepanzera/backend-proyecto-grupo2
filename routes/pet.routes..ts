@@ -18,4 +18,4 @@ router.get('/type/:type/breed/:breed', authenticateJWT, controller.getPetsByType
 
 router.post('/photo/:id', authenticateJWT, upload.array('photos'), imageController.uploadPetImage)
 
-export = router;
+export default router;
