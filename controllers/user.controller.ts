@@ -57,6 +57,14 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
 
+    // Create a new instance of UpdateUserDTO
+    let user = new UpdateUserDto();
+    user.username = userData.username;
+    user.password = userData.password;
+    user.email = userData.email;
+    user.mobile_number = userData.mobile_number;
+    user.user_type = userData.user_type
+
     // Validar datos de entrada
     const errors = await validate(userData);
     if (errors.length > 0) {

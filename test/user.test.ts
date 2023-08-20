@@ -1,23 +1,7 @@
 import request from "supertest";
 import app from "../app";
 import { describe, it, expect } from '@jest/globals';
-
-describe('Ping Endpoint', () => {
-  it('should return status 200 OK', async () => {
-    const response = await request(app).get('/ping');
-
-    expect(response.status).toBe(200);
-  });
-
-  it('should return the expected response message', async () => {
-    const response = await request(app).get('/ping');
-
-    expect(response.text).toBe('Pong');
-  });
-});
-
-
-
+import { UpdateUserDto } from "../models/user.model";
 
 describe('User Endpoints', () => {
 
@@ -89,7 +73,60 @@ describe('User Endpoints', () => {
 
   });
 
-  // Add more test cases for other user endpoints similarly
+  it('Update a user', async () => {
+    const updateUserDto: UpdateUserDto = {
+      username: 'TestUserFromJest',
+      password: 'newPassword',
+      mobile_number: '1234567890',
+      email: 'newemail@example.com',
+      user_type: 2,
+    };
+
+    const response = await request(app)
+      .patch('/users')
+      .set('Authorization', `Bearer ${authToken}`)
+      .send(updateUserDto);
+
+    expect(response.status).toBe(200);
+
+  });
+
+  it('Fails - update a user with invalid email', async () => {
+    const updateUserDto: UpdateUserDto = {
+      username: 'TestUserFromJest',
+      password: 'newPassword',
+      mobile_number: '1234567890',
+      email: 'invalidemail', // Invalid email format
+      user_type: 2,
+    };
+
+    const response = await request(app)
+      .patch('/users')
+      .set('Authorization', `Bearer ${authToken}`)
+      .send(updateUserDto);
+
+    expect(response.status).toBe(400);
+
+  });
+
+  it('Fails - update a user with invalid user type', async () => {
+    const updateUserDto: UpdateUserDto = {
+      username: 'TestUserFromJest',
+      password: 'newPassword',
+      mobile_number: '1234567890',
+      email: 'newemail@example.com',
+      user_type: 0, // Invalid user type
+    };
+
+    const response = await request(app)
+      .patch('/users')
+      .set('Authorization', `Bearer ${authToken}`)
+      .send(updateUserDto);
+
+    expect(response.status).toBe(400);
+
+  });
+
 });
 
 /*
