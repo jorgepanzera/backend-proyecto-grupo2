@@ -12,6 +12,8 @@ import userRoutes from './routes/user.routes'
 import utilRoutes from './routes/util.routes'
 import createError from 'http-errors'
 import logger from 'morgan'
+import cors from "cors";
+import corsConfig from './cors.config'
 
 
 const app = express()
@@ -24,7 +26,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware para loguear actividad
 app.use(logger('dev'))
-//app.use(logActivity)
+
+// CORS
+app.use(cors(corsConfig));
 
 // ** Routes ** //
 
@@ -73,3 +77,5 @@ app.use((req, res, next) => {
   app.listen(port, () => {
     console.info(`Application running at port ${port}`)
   });
+
+  export default app
