@@ -45,7 +45,7 @@ export class UpdateUserDto {
   @IsOptional()
   mobile_number!: string;
 
-  @IsEmail()
+  @IsEmail({}, { each: true })
   @IsOptional()
   email!: string;
 

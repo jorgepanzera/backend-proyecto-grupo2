@@ -21,6 +21,11 @@ const createToken = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+  return emailRegex.test(email);
+}
+
 // Controller para crear usuario
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   
@@ -64,6 +69,10 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
     user.email = userData.email;
     user.mobile_number = userData.mobile_number;
     user.user_type = userData.user_type
+
+    if (!isValidEmail(user.email)) {
+      return res.status(400).json("Invalid email");
+    }
 
     // Validar datos de entrada
     const errors = await validate(userData);
