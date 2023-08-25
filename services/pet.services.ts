@@ -23,4 +23,11 @@ const updatePet = async (pet_id: number, pet:UpdatePetDto): Promise<Pet> => {
     
 }
 
-export default { getPets, createPet, updatePet }
+const deletePet = async (pet_id: number): Promise<void> => {
+
+    await db.deletePet(pet_id)
+    return 
+    
+}
+
+export default { getPets, createPet, updatePet, deletePet }

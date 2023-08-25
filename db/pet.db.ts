@@ -203,5 +203,24 @@ async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
   
 }
 
+export async function deletePet(pet_id: number): Promise<void> {
+  
+    // Verificar si existe mascota para borrar
+    const findQuery = `SELECT * FROM pet WHERE pet_id = ${pet_id}`;
+
+    let petResult: QueryResult<Pet> = await queryDatabase<Pet>(findQuery)
+  
+    if (petResult.results.length === 0) {
+      throw new Error('No encontre mascota para borrar');
+    }
+  
+  try {
+    const deleteQuery = `DELETE FROM pet WHERE pet_id = ${pet_id}`;
+    await queryDatabase<void>(deleteQuery);
+  } catch (error) {
+    throw error;
+  }
+}
+
  
-  export default { getPets, createPet, updatePet }
+ export default { getPets, createPet, updatePet, deletePet }

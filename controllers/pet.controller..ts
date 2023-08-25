@@ -124,9 +124,14 @@ const updatePet = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
-const deletePet = (req: Request, res: Response, next: NextFunction) => {
+const deletePet = async (req: Request, res: Response, next: NextFunction) => {
     const targetId = parseInt(req.params.id)
-  res.json({ targetId })
+    try {
+      return res.json(await service.deletePet(targetId))
+  
+    } catch (error) {
+      next(error);
+    }
 }
 
 export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed, getPetsByStatus}

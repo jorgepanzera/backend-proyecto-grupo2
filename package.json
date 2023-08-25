@@ -1,7 +1,7 @@
 {
-  "name": "pro-mern-stack-2-api",
+  "name": "backend-grupo2-api",
   "version": "1.0.0",
-  "description": "Testing MERN API",
+  "description": "Rest API para proyecto MAPET",
   "main": "server.ts",
   "scripts": {
     "start": "npx nodemon --require babel-register -w . -w .env app.ts",
