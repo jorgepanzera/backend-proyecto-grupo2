@@ -1,6 +1,7 @@
 
 import { Pet, Event, PetPhoto, InsertPetDto, UpdatePetDto } from '../models/pet.model'
 import {UpdateUserDto} from '../models/user.model'
+import { Cantidad } from '../models/util.model';
 import { queryDatabase, QueryResult } from './db';
 
 // Para GetPetsById y GetPetsByUser
@@ -22,7 +23,7 @@ export async function getPets(pet_id: number, username: string, pet_type: number
 
 
   let query = `select a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
-	                a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code,
+	                a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code, a.age,
                   ( select count(*) from event where pet_id = a.pet_id) as cant_events,
                   ( select count(*) from photo where pet_id = a.pet_id and event_id = 0) as cant_photos
                 from pet a
@@ -94,6 +95,7 @@ export async function getPets(pet_id: number, username: string, pet_type: number
       qr_code: pet.qr_code,
       status_id: pet.status_id,
       status: pet.status,
+      age: pet.age,
       //cant_events: pet.cant_events,
       events: pet.events,
       //cant_photos: pet.cant_photos,
@@ -119,19 +121,25 @@ async function createPet(pet: InsertPetDto): Promise<Pet> {
   }
 
   const qr_code = pet.owner_user + "-" + userResult.results[0].email + "-" + userResult.results[0].mobile_number
-  const pet_status = 1
+
+  // Verificar que existe breed_id para el type de la mascota
+  const queryBreedType = `select count(*) as cant from pet_breed where breed_id = ${pet.breed_id} and pet_type = ${pet.pet_type}`
+
+  let breedResult: QueryResult<Cantidad> = await queryDatabase<Cantidad>(queryBreedType)
+  
+  if (breedResult.results[0].cant === 0) {
+    throw new Error('Error no existe breed_id para el pet_type ingresado');
+  }
 
   // Dar de alta la mascota
-  const query = `INSERT INTO pet (name, owner_user, pet_type, breed_id, qr_code, pet_status)
-                  VALUES("${pet.name}", "${pet.owner_user}", ${pet.pet_type}, ${pet.breed_id}, "${qr_code}", ${pet_status})`
-  
-  console.log(query)
+  const query = `INSERT INTO pet (name, owner_user, pet_type, breed_id, qr_code, pet_status, age)
+                  VALUES("${pet.name}", "${pet.owner_user}", ${pet.pet_type}, ${pet.breed_id}, "${qr_code}", ${pet.pet_status}, ${pet.age})`
 
   await queryDatabase<void>(query);
 
   // Devolver la mascota ingresada
   const fetchQuery = `SELECT a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
-	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code
+	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code, a.age
                     FROM pet a
                     JOIN pet_type b on b.id = a.pet_type
                     JOIN pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
@@ -154,7 +162,7 @@ async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
 
   // Actualizar la mascota
 
-  if (pet.name || pet.breed_id || pet.pet_status) {
+  if (pet.name || pet.breed_id || pet.pet_status || pet.age) {
 
     let queryUpdate = `UPDATE pet SET `
     if (pet.pet_status) {
@@ -175,6 +183,13 @@ async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
      queryUpdate += ` name = "${pet.name}"`
      moreThanOneData = true
     }
+    if (pet.age) {
+      if (moreThanOneData) {
+        queryUpdate += `,  `
+      }      
+     queryUpdate += ` age = ${pet.age}`
+     moreThanOneData = true
+    }
     queryUpdate += ` WHERE pet_id = ${pet_id}`
 
     await queryDatabase<void>(queryUpdate);
@@ -185,7 +200,7 @@ async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
 
   // Devolver la mascota actualizada
   const fetchQuery = `SELECT a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
-	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code
+	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code, a.age
                     FROM pet a
                     JOIN pet_type b on b.id = a.pet_type
                     JOIN pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
@@ -194,6 +209,7 @@ async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
                 
 
   const { results } = await queryDatabase<Pet>(fetchQuery);
+
 
   if (results.length === 0) {
     throw new Error('Failed to fetch the updated pet');
@@ -221,6 +237,7 @@ export async function deletePet(pet_id: number): Promise<void> {
     throw error;
   }
 }
+
 
  
  export default { getPets, createPet, updatePet, deletePet }

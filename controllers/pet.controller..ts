@@ -74,6 +74,8 @@ const createPet = async (req: Request, res: Response, next: NextFunction) => {
     petInsert.owner_user = petData.owner_user;
     petInsert.pet_type = petData.pet_type;
     petInsert.breed_id = petData.breed_id;
+    petInsert.pet_status = petData.pet_status;
+    petInsert.age = petData.age
 
     // Validar datos de entrada
     const errors = await validate(petInsert);

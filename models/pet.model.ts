@@ -12,6 +12,7 @@ export interface Pet {
   qr_code: string;
   status_id: number;
   status: string;
+  age: number;
   events: Event[];
   photos: PetPhoto[]
 }
@@ -63,23 +64,36 @@ export class InsertPetDto {
   @IsNotEmpty()
   @IsInt()
   breed_id!: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  pet_status!: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  age!: number;
 }
 
 
 export class UpdatePetDto {
-  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status)
-  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name) son requeridos para updatePet' })
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status && !obj.age)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name, age) son requeridos para updatePet' })
   @Transform(({ value }) => value || undefined)
   name?: string;
 
-  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status)
-  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name) son requeridos para updatePet' })
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status && !obj.age)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name, age) son requeridos para updatePet' })
   @Transform(({ value }) => value || undefined)
   breed_id?: number;
 
-  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status)
-  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name) son requeridos para updatePet' })
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status && !obj.age)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name, age) son requeridos para updatePet' })
   @Transform(({ value }) => value || undefined)
   pet_status?: number;
+
+  @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status && !obj.age)
+  @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name, age) son requeridos para updatePet' })
+  @Transform(({ value }) => value || undefined)
+  age?: number;
 }
 

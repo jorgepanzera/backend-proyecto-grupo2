@@ -9,3 +9,7 @@ export interface PetBreed {
     pet_type: number,
     breed_name: string
 }
+
+export interface Cantidad {
+    cant: number
+}
