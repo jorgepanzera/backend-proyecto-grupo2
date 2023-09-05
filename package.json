@@ -5,6 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "npx nodemon --require babel-register -w . -w .env app.ts",
+    "startprod": "npx nodemon ./dist/app.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
