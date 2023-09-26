@@ -16,4 +16,4 @@ router.post('/photo/:id', authenticateJWT, upload.array('photos'), imageControll
 router.patch("/", authenticateJWT, controller.updateUser)
 router.get("/:username",authenticateJWT,controller.getUser)
 
-export = router;
+export default router;

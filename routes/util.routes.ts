@@ -9,4 +9,4 @@ router.get('/pettype', authenticateJWT,controller.getPetTypes)
 router.get('/petbreed/:pet_type', authenticateJWT, controller.getPetBreeds)
 
 
-export = router;
+export default router;
