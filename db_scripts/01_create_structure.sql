@@ -1,10 +1,26 @@
+
+-- Drops en orden correcto
+DROP TABLE IF EXISTS `photo`;
+DROP TABLE IF EXISTS `message`;
+DROP TABLE IF EXISTS `event`;
+DROP TABLE IF EXISTS `event_history`;
+DROP TABLE IF EXISTS `event_type`;
+
+
+DROP TABLE IF EXISTS `pet`;
+DROP TABLE IF EXISTS `pet_breed`;
+DROP TABLE IF EXISTS `pet_type`;
+DROP TABLE IF EXISTS `pet_status`;
+
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `user_type`;
+
+
+-- Creates en orden correcto
+
 --
 -- Table structure for table `pet_type`
 --
-
-DROP TABLE IF EXISTS `pet_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pet_type` (
   `id` int NOT NULL,
   `type_name` varchar(255) NOT NULL,
@@ -12,13 +28,10 @@ CREATE TABLE `pet_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
 --
 -- Table structure for table `pet_breed`
 --
-
-DROP TABLE IF EXISTS `pet_breed`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pet_breed` (
   `breed_id` int NOT NULL,
   `pet_type` int NOT NULL,
@@ -28,14 +41,9 @@ CREATE TABLE `pet_breed` (
   CONSTRAINT `fk_pet_breedtype` FOREIGN KEY (`pet_type`) REFERENCES `pet_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-
 --
 -- Table structure for table `pet_status`
 --
-
-DROP TABLE IF EXISTS `pet_status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pet_status` (
   `status_id` int NOT NULL,
   `status` varchar(150) NOT NULL,
@@ -46,10 +54,6 @@ CREATE TABLE `pet_status` (
 --
 -- Table structure for table `event_type`
 --
-
-DROP TABLE IF EXISTS `event_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `event_type` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -61,10 +65,6 @@ CREATE TABLE `event_type` (
 --
 -- Table structure for table `user_type`
 --
-
-DROP TABLE IF EXISTS `user_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_type` (
   `id` int NOT NULL,
   `user_type` varchar(255) NOT NULL,
@@ -76,10 +76,6 @@ CREATE TABLE `user_type` (
 --
 -- Table structure for table `user`
 --
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `username` varchar(150) NOT NULL,
   `password` varchar(32) NOT NULL,
@@ -99,10 +95,6 @@ CREATE TABLE `user` (
 --
 -- Table structure for table `pet`
 --
-
-DROP TABLE IF EXISTS `pet`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pet` (
   `pet_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
@@ -126,10 +118,6 @@ CREATE TABLE `pet` (
 --
 -- Table structure for table `photo`
 --
-
-DROP TABLE IF EXISTS `photo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `photo` (
   `photo_id` int NOT NULL AUTO_INCREMENT,
   `pet_id` int NOT NULL,
@@ -146,10 +134,6 @@ CREATE TABLE `photo` (
 --
 -- Table structure for table `event`
 --
-
-DROP TABLE IF EXISTS `event`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `event` (
   `event_id` int NOT NULL AUTO_INCREMENT,
   `pet_id` int NOT NULL,
@@ -169,10 +153,6 @@ CREATE TABLE `event` (
 --
 -- Table structure for table `event_history`
 --
-
-DROP TABLE IF EXISTS `event_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `event_history` (
   `history_id` int NOT NULL,
   `event_id` int NOT NULL,
@@ -193,10 +173,6 @@ CREATE TABLE `event_history` (
 --
 -- Table structure for table `message`
 --
-
-DROP TABLE IF EXISTS `message`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message` (
   `message_id` int NOT NULL AUTO_INCREMENT,
   `pet_id` int NOT NULL,
