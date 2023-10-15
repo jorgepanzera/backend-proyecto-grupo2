@@ -7,7 +7,8 @@ import multer from 'multer';
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/', authenticateJWT, upload.array('photos'), controller.createPet)
+//router.post('/', authenticateJWT, upload.array('photos'), controller.createPet)
+router.post('/', authenticateJWT, upload.array('photos'), controller.createPetwithPhotos)
 router.get('/:id', authenticateJWT, controller.getPetById)
 router.get('/status/:pet_status', authenticateJWT, controller.getPetsByStatus)
 router.get('/user/:user', authenticateJWT, controller.getPetsByUser)

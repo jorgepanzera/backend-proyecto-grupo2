@@ -53,12 +53,12 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY4ODgyMzE2NiwiZXhwIjoxNjkyNDIzMTY2fQ.LR7avP91FulhM_mRxB0WjVvop6_ttWo80NLWkU7nGOg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQxMjQwMiwiZXhwIjoxNzAxMDEyNDAyfQ.q3pijoUWKKrgUAYdxL0zPXmkeFxUA8HZBVbnQFWiDZg",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8000/pets/3",
+							"raw": "http://localhost:8000/pets/22",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -66,7 +66,7 @@
 							"port": "8000",
 							"path": [
 								"pets",
-								"3"
+								"22"
 							]
 						}
 					},
@@ -112,12 +112,55 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Wifi\",\r\n    \"owner_user\":\"testfreeuser\",\r\n    \"pet_type\":1,\r\n    \"breed_id\":22\r\n}",
+							"raw": "{\r\n    \"name\":\"LostinCreate\",\r\n    \"owner_user\":\"testFreeUser\",\r\n    \"pet_type\":1,\r\n    \"breed_id\":42,\r\n    \"pet_status\": 2,\r\n    \"age\": 7\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/pets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"pets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePetwithPhoto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQxMjQwMiwiZXhwIjoxNzAxMDEyNDAyfQ.q3pijoUWKKrgUAYdxL0zPXmkeFxUA8HZBVbnQFWiDZg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photos",
+									"type": "file",
+									"src": [
+										"/D:/test/pets/Dog01.JPG",
+										"/D:/test/pets/Dog02.JPG"
+									]
+								},
+								{
+									"key": "json",
+									"value": "{\n    \"name\":\"AnotherPetwithPhoto\",\n    \"owner_user\":\"testFreeUser\",\n    \"pet_type\":1,\n    \"breed_id\":46,\n    \"pet_status\": 1,\n    \"age\": 4\n}",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8000/pets",
@@ -166,7 +209,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4NDQ1MTQzOCwiZXhwIjoxNjg4MDUxNDM4fQ.G_ZALvo3W9VE-7XOpdzv4gnWu6JSNQrrIHrMsUeZzyM",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5MzYwNTAzNCwiZXhwIjoxNjk3MjA1MDM0fQ.EPa1lHltBK5GhIwWd5LGyat9BEPxHW9YD1kynTeVBx4",
 								"type": "text"
 							}
 						],
@@ -176,26 +219,27 @@
 								{
 									"key": "photos",
 									"type": "file",
-									"src": "/D:/test/pets/pets3.PNG"
+									"src": "/D:/test/pets/cat02.JPG"
 								},
 								{
 									"key": "photos",
 									"type": "file",
-									"src": "/D:/test/pets/Mascotas2.jpg"
+									"src": [],
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/pets/photo/3",
+							"raw": "http://localhost:8000/pets/photo/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "8000",
 							"path": [
 								"pets",
 								"photo",
-								"3"
+								"4"
 							]
 						}
 					},
@@ -249,13 +293,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1haWwyQGdtYWlsLmNvbSIsImlhdCI6MTY4NzA0MTY0NCwiZXhwIjoxNjkwNjQxNjQ0fQ.4HZW7-WHyj5L-LMrWygZ_xWZTjGRfKZpFWh6CjK0TMk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5NzQxMjQwMiwiZXhwIjoxNzAxMDEyNDAyfQ.q3pijoUWKKrgUAYdxL0zPXmkeFxUA8HZBVbnQFWiDZg",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pet_status\": 1\r\n}",
+							"raw": "{\r\n    \"pet_status\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -263,7 +307,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/pets/3",
+							"raw": "http://localhost:8000/pets/22",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -271,7 +315,7 @@
 							"port": "8000",
 							"path": [
 								"pets",
-								"3"
+								"22"
 							]
 						}
 					},
@@ -284,7 +328,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5MjM5OTU2NCwiZXhwIjoxNjk1OTk5NTY0fQ.Nobf6BJUbRWU3ZYQi7g8BzELyNbEE_sCM4HiWI6iUwk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5NzM5NjI3NCwiZXhwIjoxNzAwOTk2Mjc0fQ.tsSjintNvkjMzzsgKp7GL4aWxotETQ05azlDt0pEcS8",
 								"type": "text"
 							}
 						],
@@ -566,6 +610,123 @@
 								"1"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Render",
+			"item": [
+				{
+					"name": "Pet",
+					"item": [
+						{
+							"name": "GetAllPets",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5Mzk1NzAxNCwiZXhwIjoxNjk3NTU3MDE0fQ.0tnTwq6rE_JZAzLAOiAdWq_I2QRckuJmXdi8hySRML4",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://backend-grupo2.onrender.com/pets",
+									"protocol": "https",
+									"host": [
+										"backend-grupo2",
+										"onrender",
+										"com"
+									],
+									"path": [
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "uploadPetPhoto",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGZyZWV1c2VyIiwiZW1haWwiOiJwYW56ZXJhLmpvcmdlQGdtYWlsLmNvbSIsImlhdCI6MTY5Mzk1NzAxNCwiZXhwIjoxNjk3NTU3MDE0fQ.0tnTwq6rE_JZAzLAOiAdWq_I2QRckuJmXdi8hySRML4",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photos",
+											"type": "file",
+											"src": "/C:/Temp/petphoto.JPG"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://backend-grupo2.onrender.com/pets/photo/4",
+									"protocol": "https",
+									"host": [
+										"backend-grupo2",
+										"onrender",
+										"com"
+									],
+									"path": [
+										"pets",
+										"photo",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"email\":\"panzera.jorge@gmail.com\", \"password\":\"FreeTestUser2023\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://backend-grupo2.onrender.com/users/login",
+									"protocol": "https",
+									"host": [
+										"backend-grupo2",
+										"onrender",
+										"com"
+									],
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Ping",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
