@@ -100,7 +100,7 @@
 					"response": []
 				},
 				{
-					"name": "CreatePet",
+					"name": "OldCreatePet",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -134,7 +134,7 @@
 					"response": []
 				},
 				{
-					"name": "CreatePetwithPhoto",
+					"name": "CreatePet",
 					"request": {
 						"method": "POST",
 						"header": [

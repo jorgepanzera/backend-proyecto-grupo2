@@ -61,7 +61,8 @@ const getPetsByTypeBreed = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
-const createPet = async (req: Request, res: Response, next: NextFunction) => { 
+// Esta version no incluye fotos, fue la original
+const createPetOld = async (req: Request, res: Response, next: NextFunction) => { 
 
   const petData: InsertPetDto = req.body;
 
@@ -92,8 +93,8 @@ const createPet = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
-
-const createPetwithPhotos = async (req: Request, res: Response, next: NextFunction) => { 
+// Nueva version, da de alta los datos con req.body.json y las fotos desde req.files
+const createPet = async (req: Request, res: Response, next: NextFunction) => { 
 
   const petData: InsertPetDto = JSON.parse(req.body.json);
 
@@ -127,8 +128,6 @@ const createPetwithPhotos = async (req: Request, res: Response, next: NextFuncti
 
       }
   
-
-
       return res.status(200).send(pet)
     }
   } catch(error) {
@@ -145,14 +144,6 @@ const updatePet = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     
-    /*
-    // Create a new instance of InsertPetDto para validar
-    let petInsert = new InsertPetDto();
-    petInsert.name = petData.name;
-    petInsert.owner_user = petData.owner_user;
-    petInsert.pet_type = petData.pet_type;
-    petInsert.breed_id = petData.breed_id;
-    */
 
     // Validar datos de entrada
     const errors = await validate(petData);
@@ -180,5 +171,5 @@ const deletePet = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed, getPetsByStatus, createPetwithPhotos}
+export default {getAllPets, getPetById, getPetsByUser, createPet, updatePet, deletePet, getPetsByTypeBreed, getPetsByStatus}
 
