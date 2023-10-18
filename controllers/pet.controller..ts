@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Pet, InsertPetDto, UpdatePetDto } from '../models/pet.model'
 import service from '../services/pet.services'
+import photoService from "../services/photo.services";
 import { validate } from 'class-validator';
 
 
@@ -60,9 +61,8 @@ const getPetsByTypeBreed = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
-
-
-const createPet = async (req: Request, res: Response, next: NextFunction) => { 
+// Esta version no incluye fotos, fue la original
+const createPetOld = async (req: Request, res: Response, next: NextFunction) => { 
 
   const petData: InsertPetDto = req.body;
 
@@ -93,6 +93,49 @@ const createPet = async (req: Request, res: Response, next: NextFunction) => {
 
 }
 
+// Nueva version, da de alta los datos con req.body.json y las fotos desde req.files
+const createPet = async (req: Request, res: Response, next: NextFunction) => { 
+
+  const petData: InsertPetDto = JSON.parse(req.body.json);
+
+  try {
+    
+    // Create a new instance of InsertPetDto para validar
+    let petInsert = new InsertPetDto();
+    petInsert.name = petData.name;
+    petInsert.owner_user = petData.owner_user;
+    petInsert.pet_type = petData.pet_type;
+    petInsert.breed_id = petData.breed_id;
+    petInsert.pet_status = petData.pet_status;
+    petInsert.age = petData.age
+
+    // Validar datos de entrada
+    const errors = await validate(petInsert);
+    if (errors.length > 0) {
+      // Errores de validacion
+      return res.status(400).json({ errors: errors.map((error) => error.toString()) });
+    }  else {
+      // si paso validaciones de input, voy a crearlo en bd
+      const pet = await service.createPet(petInsert)
+
+      // Si dio de alta la mascota, voy a ingresar sus photos
+
+      if (!(!req.files || !Array.isArray(req.files))) {
+        
+        const files: Express.Multer.File[] = req.files;
+  
+        const petPhotos = await photoService.createPetPhoto(pet.pet_id, files);
+
+      }
+  
+      return res.status(200).send(pet)
+    }
+  } catch(error) {
+    next(error)
+  }
+
+}
+
 
 const updatePet = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -101,14 +144,6 @@ const updatePet = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     
-    /*
-    // Create a new instance of InsertPetDto para validar
-    let petInsert = new InsertPetDto();
-    petInsert.name = petData.name;
-    petInsert.owner_user = petData.owner_user;
-    petInsert.pet_type = petData.pet_type;
-    petInsert.breed_id = petData.breed_id;
-    */
 
     // Validar datos de entrada
     const errors = await validate(petData);
