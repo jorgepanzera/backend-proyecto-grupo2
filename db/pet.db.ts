@@ -231,6 +231,15 @@ export async function deletePet(pet_id: number): Promise<void> {
     }
   
   try {
+    // Borrar fotos asociadas
+    const deletePhotoQuery = `DELETE FROM photo WHERE pet_id = ${pet_id}`;
+    await queryDatabase<void>(deletePhotoQuery);
+
+    // Borrar eventos asociados
+    const deleteEventQuery = `DELETE FROM event WHERE pet_id = ${pet_id}`;
+    await queryDatabase<void>(deleteEventQuery);    
+
+    // Borrar mascota
     const deleteQuery = `DELETE FROM pet WHERE pet_id = ${pet_id}`;
     await queryDatabase<void>(deleteQuery);
   } catch (error) {
