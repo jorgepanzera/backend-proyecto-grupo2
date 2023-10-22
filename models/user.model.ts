@@ -11,7 +11,6 @@ export interface User {
   }
   
 
-
 export class InsertUserDto {
   @IsNotEmpty()
   username!: string;

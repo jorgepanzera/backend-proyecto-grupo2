@@ -1,11 +1,14 @@
 
-import { Pet, Event, PetPhoto, InsertPetDto, UpdatePetDto } from '../models/pet.model'
+import { Pet, Event, PetPhoto, InsertPetDto, UpdatePetDto, PetOwner } from '../models/pet.model'
 import {UpdateUserDto} from '../models/user.model'
 import { Cantidad } from '../models/util.model';
 import { queryDatabase, QueryResult } from './db';
 
 // Para GetPetsById y GetPetsByUser
 interface PetQuery extends Pet  {
+  username: string,
+  email: string, 
+  mobile_number: string,
   cant_events: number,
   cant_photos: number
 }
@@ -22,7 +25,7 @@ export async function getPets(pet_id: number, username: string, pet_type: number
   pet_status = pet_status || 0
 
 
-  let query = `select a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
+  let query = `select a.pet_id, u.username, u.email, u.mobile_number, a.name, a.pet_type, b.type_name as type,
 	                a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code, a.age,
                   ( select count(*) from event where pet_id = a.pet_id) as cant_events,
                   ( select count(*) from photo where pet_id = a.pet_id and event_id = 0) as cant_photos
@@ -30,6 +33,7 @@ export async function getPets(pet_id: number, username: string, pet_type: number
                 join pet_type b on b.id = a.pet_type
                 join pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
                 join pet_status d on d.status_id = a.pet_status
+                join user u on u.username = a.owner_user
                 where 1=1
                 and (pet_id = ${pet_id} or ${pet_id} = 0)
                 and (pet_status = ${pet_status} or ${pet_status} = 0)
@@ -47,6 +51,9 @@ export async function getPets(pet_id: number, username: string, pet_type: number
   
 
   for (const pet of queryResult.results) {
+
+    // LLenar objeto PetOwner
+    let thisPetOwner : PetOwner = {username:pet.username,email:pet.email,mobile_number:pet.mobile_number};
     
     // Si tiene eventos, lleno el array (CONVERTIR EN FUNCION INDEPENDIENTE Y LLENAR PHOTOS DE EVENTS)
     if (pet.cant_events > 0) {
@@ -86,7 +93,8 @@ export async function getPets(pet_id: number, username: string, pet_type: number
   
     const newPet: Pet = {
       pet_id: pet.pet_id,
-      owner: pet.owner,
+      //owner: pet.owner,
+      owner: thisPetOwner,
       name: pet.name,
       pet_type: pet.pet_type,
       type: pet.type,
