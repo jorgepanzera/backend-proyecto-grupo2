@@ -13,6 +13,7 @@ async function verifyUser(email:string, password:string): Promise<UpdateUserDto[
 async function createUser(user:InsertUserDto): Promise<User> {
 
   user.user_type = user.user_type || 1
+  user.mobile_number = user.mobile_number || ""
 
   const query = `insert into user (username, password, email, mobile_number, type) 
                   values ("${user.username}","${user.password}","${user.email}","${user.mobile_number}", ${user.user_type})`
