@@ -15,23 +15,23 @@ export interface User {
   
 
 export class InsertUserDto {
-  @IsNotEmpty()
-  username!: string;
+    @IsNotEmpty()
+    username!: string;
 
-  @IsNotEmpty()
-  password!: string;
+    @IsNotEmpty()
+    password!: string;
 
-  @IsEmail()
-  @IsNotEmpty()
-  email!: string;
+    @IsEmail()
+    @IsNotEmpty()
+    email!: string;
 
-  @IsOptional()
-  mobile_number!: string;
+    @IsOptional()
+    mobile_number!: string;
 
-  @IsInt()
-  @Min(1)
-  @IsOptional()
-  user_type: number = 1;
+    @IsInt()
+    @Min(1)
+    @IsOptional()
+    user_type: number = 1;
 
   @IsOptional()
   created_time: Date = new Date();
@@ -41,26 +41,21 @@ export class InsertUserDto {
 }
 
 export class UpdateUserDto {
-  @IsNotEmpty()
-  username!: string;
+    @IsNotEmpty()
+    username!: string;
 
-  @IsOptional()
-  password!: string;
+    @IsOptional()
+    password!: string;
 
-  @IsOptional()
-  mobile_number!: string;
+    @IsOptional()
+    mobile_number!: string;
 
-  @IsEmail({}, { each: true })
-  @IsOptional()
-  email!: string;
+    @IsEmail({}, { each: true })
+    @IsOptional()
+    email!: string;
 
-  @IsInt()
-  @Min(1)
-  @IsOptional()
-  user_type!: number;
-
-}
-
-export interface UserPhoto {
-  url: string;
+    @IsInt()
+    @Min(1)
+    @IsOptional()
+    user_type!: number;
 }

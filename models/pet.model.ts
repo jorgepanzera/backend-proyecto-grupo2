@@ -11,12 +11,12 @@ export interface Pet {
   type: string;
   breed_id: number;
   breed: string;
-  qr_code: string;
+  qr_code: string; 
   status_id: number;
   status: string;
   age: number;
   events: Event[];
-  photos: PetPhoto[]
+  photos: PetPhoto[];
 }
 
 export interface Event {
@@ -24,16 +24,16 @@ export interface Event {
   event_type: number;
   event_name: string;
   created_by: string;
-  created_date: Date
+  created_date: Date;
   latitude: number;
   longitud: number;
-  photos: EventPhoto[]
+  photos: EventPhoto[];
 }
 
 export interface PetPhoto {
   photo_id: number;
   url: string;
-  main_photo: number,
+  main_photo: number;
   created_date: Date;
 }
 
@@ -85,7 +85,6 @@ export class InsertPetDto {
   id!: string;
 }
 
-
 export class UpdatePetDto {
   @ValidateIf((obj) => !obj.name && !obj.breed_id && !obj.pet_status && !obj.age)
   @IsDefined({ message: 'Al menos uno de los datos (pet_status, breed_id, name, age) son requeridos para updatePet' })
@@ -107,4 +106,3 @@ export class UpdatePetDto {
   @Transform(({ value }) => value || undefined)
   age?: number;
 }
-
