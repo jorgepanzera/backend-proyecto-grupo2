@@ -2,8 +2,11 @@
 
 # DB_URL=mongodb+srv://admin:Ji9vfIASQ7NnFwN8@cluster0.30imzhm.mongodb.net
 
-# ambiente actual
+# ambiente actual API
 NODE_ENV=
+
+# ambiente actual front-end
+FRONT_ENV=
 
 # Server Port
 API_SERVER_PORT=

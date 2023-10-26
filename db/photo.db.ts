@@ -2,7 +2,7 @@ import {queryDatabase} from './db'
 import { PetPhoto } from '../models/pet.model'
 import { User } from '../models/user.model';
 
-async function createPetPhoto(pet_id: number, photoUrl:string): Promise<PetPhoto> {
+async function createPetPhoto(pet_id: string, photoUrl:string): Promise<PetPhoto> {
 
     let main_photo: number
 
