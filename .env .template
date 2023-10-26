@@ -5,7 +5,7 @@
 # ambiente actual API
 NODE_ENV=
 
-# ambiente actual front-end
+# ambiente actual front-end (production or local)
 FRONT_ENV=
 
 # Server Port
