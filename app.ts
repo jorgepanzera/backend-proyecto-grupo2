@@ -7,7 +7,7 @@ dotenv.config()
 import express, { Request, Response, NextFunction } from "express"
 import bodyParser from "body-parser"
 import { logActivity } from "./middleware/consolelog.middle"
-import petRoutes from './routes/pet.routes.'
+import petRoutes from './routes/pet.routes'
 import userRoutes from './routes/user.routes'
 import utilRoutes from './routes/util.routes'
 import createError from 'http-errors'

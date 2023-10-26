@@ -1,5 +1,6 @@
-import {queryDatabase} from './db'
-import {User, InsertUserDto, UpdateUserDto} from '../models/user.model'
+import {queryDatabase} from './db';
+import {User, InsertUserDto, UpdateUserDto} from '../models/user.model';
+import { generateUUID } from '../utils/generate_uuid';
 
 
 async function verifyUser(email:string, password:string): Promise<UpdateUserDto[]> {
@@ -12,11 +13,12 @@ async function verifyUser(email:string, password:string): Promise<UpdateUserDto[
 
 async function createUser(user:InsertUserDto): Promise<User> {
 
+  const user_id = generateUUID();
   user.user_type = user.user_type || 1
   user.mobile_number = user.mobile_number || ""
 
-  const query = `insert into user (username, password, email, mobile_number, type) 
-                  values ("${user.username}","${user.password}","${user.email}","${user.mobile_number}", ${user.user_type})`
+  const query = `insert into user (user_id, username, password, email, mobile_number, type) 
+                  values ( "${user_id}", "${user.username}","${user.password}","${user.email}","${user.mobile_number}", ${user.user_type})`
 
   await queryDatabase<void>(query);
 

@@ -1,6 +1,9 @@
 import { IsNotEmpty, IsEmail, IsOptional, IsInt, Min, IsDateString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { generateUUID } from '../utils/generate_uuid';
 
 export interface User {
+    user_id: string;
     username: string;
     password: string;
     user_type: number;
@@ -32,6 +35,9 @@ export class InsertUserDto {
 
   @IsOptional()
   created_time: Date = new Date();
+
+  @Transform(({ value }) => generateUUID())
+  user_id!: string;
 }
 
 export class UpdateUserDto {

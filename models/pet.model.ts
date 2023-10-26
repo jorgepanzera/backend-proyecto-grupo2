@@ -1,8 +1,10 @@
 import { IsNotEmpty, IsIn, IsInt,IsDefined, ValidateIf } from 'class-validator';
 import { Transform } from 'class-transformer'
+import { generateUUID } from '../utils/generate_uuid';
 
 export interface Pet {
-  pet_id: number;
+
+  pet_id: string;
   owner: PetOwner;
   name: string;
   pet_type: number;
@@ -44,7 +46,7 @@ export interface EventPhoto {
 export interface PetOwner {
   username: string;
   email: string;
-  mobile_number: string
+  mobile_number: string;
 }
 
 export interface Message {
@@ -78,6 +80,9 @@ export class InsertPetDto {
   @IsNotEmpty()
   @IsInt()
   age!: number;
+
+  @Transform(({ value }) => value || generateUUID())
+  id!: string;
 }
 
 

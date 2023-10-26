@@ -1,4 +1,4 @@
-import controller from '../controllers/pet.controller.';
+import controller from '../controllers/pet.controller';
 import imageController from '../controllers/photo.controller'
 import express from 'express';
 import { authenticateJWT } from '../middleware/jwt.middle';

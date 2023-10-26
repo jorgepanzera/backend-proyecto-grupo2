@@ -1,5 +1,6 @@
-import db from '../db/user.db'
-import { User, InsertUserDto, UpdateUserDto } from '../models/user.model'
+import db from '../db/user.db';
+import { User, InsertUserDto, UpdateUserDto } from '../models/user.model';
+import { generateUUID } from '../utils/generate_uuid';
 
 const verifyUser =  async (email:string, password:string) : Promise<UpdateUserDto> => {
 
@@ -9,6 +10,10 @@ const verifyUser =  async (email:string, password:string) : Promise<UpdateUserDt
 }
 
 const createUser = async (user: InsertUserDto) : Promise<User> => {
+
+  const user_id = generateUUID();
+
+  user.user_id = user_id;
 
   // Create a new instance of User
   const result = await db.createUser(user)

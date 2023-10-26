@@ -6,7 +6,7 @@ const uploadPetImage = async (  req: Request,  res: Response,  next: NextFunctio
   try {
     const targetPet = req.params.id;
 
-    const petId = Number(targetPet);
+    const petId = targetPet;
 
     if (!req.files || !Array.isArray(req.files)) {
       // Handle the case when req.files is not defined or not an array

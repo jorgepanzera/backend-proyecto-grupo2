@@ -1,32 +1,38 @@
-import db from '../db/pet.db'
-import { Pet, InsertPetDto, UpdatePetDto } from '../models/pet.model'
+import db from '../db/pet.db';
+import { Pet, InsertPetDto, UpdatePetDto } from '../models/pet.model';
+import { generateUUID } from '../utils/generate_uuid';
+import { generateQRCode } from '../utils/generate_qr';
 
-const getPets =  async (pet_id: number, username:string, pet_type:number, breed_id: number, pet_status: number) : Promise<Pet[]> => {
+const getPets =  async (pet_id: string, username:string, pet_type:number, breed_id: number, pet_status: number) : Promise<Pet[]> => {
 
-    const pets = await db.getPets(pet_id, username, pet_type, breed_id, pet_status)
+    const pets = await db.getPets(pet_id, username, pet_type, breed_id, pet_status);
 
-    return pets
+    return pets;
 
 }
 
 const createPet = async (pet:InsertPetDto): Promise<Pet> => {
     
-    const createdPet = await db.createPet(pet)
-    return createdPet
+    const pet_id = generateUUID();
+    const qr_code = generateQRCode(pet_id);
+    const petWithUUID = { ...pet, pet_id, qr_code};
+
+    const createdPet = await db.createPet(petWithUUID);
+    return createdPet;
 
 }
 
-const updatePet = async (pet_id: number, pet:UpdatePetDto): Promise<Pet> => {
+const updatePet = async (pet_id: string, pet:UpdatePetDto): Promise<Pet> => {
 
-    const updatedPet = await db.updatePet(pet_id, pet)
-    return updatedPet
+    const updatedPet = await db.updatePet(pet_id, pet);
+    return updatedPet;
     
 }
 
-const deletePet = async (pet_id: number): Promise<void> => {
+const deletePet = async (pet_id: string): Promise<void> => {
 
-    await db.deletePet(pet_id)
-    return 
+    await db.deletePet(pet_id);
+    return; 
     
 }
 
