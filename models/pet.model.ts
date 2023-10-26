@@ -81,8 +81,8 @@ export class InsertPetDto {
   @IsInt()
   age!: number;
 
-  @Transform(({ value }) => value || generateUUID())
-  id!: string;
+  // @Transform(({ value }) => value || generateUUID())
+  // id!: string;
 }
 
 export class UpdatePetDto {

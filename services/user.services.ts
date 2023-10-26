@@ -11,9 +11,9 @@ const verifyUser =  async (email:string, password:string) : Promise<UpdateUserDt
 
 const createUser = async (user: InsertUserDto) : Promise<User> => {
 
-  const user_id = generateUUID();
+  // const user_id = generateUUID();
 
-  user.user_id = user_id;
+  // user.id = user_id;
 
   // Create a new instance of User
   const result = await db.createUser(user)

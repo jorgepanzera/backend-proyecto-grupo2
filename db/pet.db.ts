@@ -2,8 +2,6 @@
 import { Pet, Event, PetPhoto, InsertPetDto, UpdatePetDto, PetOwner } from '../models/pet.model'
 import {UpdateUserDto} from '../models/user.model'
 import { Cantidad } from '../models/util.model';
-import { generateUUID } from '../utils/uuid';
-import { generateQRCode } from "../utils/qrcode";
 import { queryDatabase, QueryResult } from './db';
 import { generateUUID } from '../utils/generate_uuid';
 import { generateQRCode } from '../utils/generate_qr';
@@ -19,11 +17,11 @@ interface PetQuery extends Pet  {
 }
 
 // Para GetPetsById y GetPetsByUser
-export async function getPets(pet_id: string, username: string, pet_type: number, breed_id:number, pet_status: number): Promise<Pet[]> {
+export async function getPets(pet_id: number, username: string, pet_type: number, breed_id:number, pet_status: number): Promise<Pet[]> {
   
   // TODO filtro por tipo mascota y raza (pet_type and breed)
 
-  pet_id = pet_id || ""
+  pet_id = pet_id || 0
   username = username || ""
   pet_type = pet_type || 0
   breed_id = breed_id || 0
@@ -85,7 +83,7 @@ export async function getPets(pet_id: string, username: string, pet_type: number
                             where 1=1
                             and pet_id = ${pet.pet_id}
                             and event_id = 0`
-      if (pet_id == "") {
+      if (pet_id == 0) {
         photosQuery += ` and main_photo = 1` // si no es consulta especifica por pet_id, traigo solo la foto principal   
       }
       photosQuery += ` order by created_date`
@@ -172,7 +170,7 @@ async function createPet(pet: InsertPetDto): Promise<Pet> {
 
 }
 
-async function updatePet(pet_id: string, pet: UpdatePetDto): Promise<Pet> {
+async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
 
   let moreThanOneData:boolean = false
 
@@ -235,7 +233,7 @@ async function updatePet(pet_id: string, pet: UpdatePetDto): Promise<Pet> {
   
 }
 
-export async function deletePet(pet_id: string): Promise<void> {
+export async function deletePet(pet_id: number): Promise<void> {
   
     // Verificar si existe mascota para borrar
     const findQuery = `SELECT * FROM pet WHERE pet_id = ${pet_id}`;

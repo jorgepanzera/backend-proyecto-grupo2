@@ -24,14 +24,14 @@ const createPet = async (pet:InsertPetDto): Promise<Pet> => {
 
 }
 
-const updatePet = async (pet_id: string, pet:UpdatePetDto): Promise<Pet> => {
+const updatePet = async (pet_id: number, pet:UpdatePetDto): Promise<Pet> => {
 
     const updatedPet = await db.updatePet(pet_id, pet);
     return updatedPet;
     
 }
 
-const deletePet = async (pet_id: string): Promise<void> => {
+const deletePet = async (pet_id: number): Promise<void> => {
 
     await db.deletePet(pet_id);
     return; 
