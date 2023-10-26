@@ -1,5 +1,6 @@
 import cors from "cors";
 
+
 const allowedOrigins = ["http://localhost:3000", "https://mapet-five.vercel.app"];
 
 const corsOptions: cors.CorsOptions = {

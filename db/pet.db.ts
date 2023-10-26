@@ -8,6 +8,7 @@ import { generateQRCode } from '../utils/generate_qr';
 
 // Para GetPetsById y GetPetsByUser
 interface PetQuery extends Pet  {
+
   username: string;
   email: string;
   mobile_number: string;
@@ -55,7 +56,9 @@ export async function getPets(pet_id: string, username: string, pet_type: number
   for (const pet of queryResult.results) {
 
 
+
     let thisPetOwner: PetOwner = { username: pet.username, email: pet.email, mobile_number: pet.mobile_number }
+
     
     // Si tiene eventos, lleno el array (CONVERTIR EN FUNCION INDEPENDIENTE Y LLENAR PHOTOS DE EVENTS)
     if (pet.cant_events > 0) {
