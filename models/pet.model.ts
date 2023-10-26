@@ -4,7 +4,7 @@ import { generateUUID } from '../utils/generate_uuid';
 
 export interface Pet {
 
-  pet_id: string;
+  pet_id: number;
   owner: PetOwner;
   name: string;
   pet_type: number;

@@ -27,7 +27,7 @@ const createPetPhoto = async (pet_id: number, photos: Express.Multer.File[]):Pro
 
 /* Procesar todas las fotos del array, primero obtener url desde el cloud storage (handleFileUpload), 
 luego guardar en BD (createPetPhoto) */
-const createPetPhoto = async ( pet_id: string,  photos: Express.Multer.File[]): Promise<PetPhoto[]> => {
+const createPetPhoto = async ( pet_id: number,  photos: Express.Multer.File[]): Promise<PetPhoto[]> => {
   const petPhotos: PetPhoto[] = await Promise.all(
     photos.map(async (photo) => {
       const resultUrl = await handleFileUpload(photo);

@@ -17,11 +17,11 @@ interface PetQuery extends Pet  {
 }
 
 // Para GetPetsById y GetPetsByUser
-export async function getPets(pet_id: string, username: string, pet_type: number, breed_id:number, pet_status: number): Promise<Pet[]> {
+export async function getPets(pet_id: number, username: string, pet_type: number, breed_id:number, pet_status: number): Promise<Pet[]> {
   
   // TODO filtro por tipo mascota y raza (pet_type and breed)
 
-  pet_id = pet_id || ""
+  pet_id = pet_id || 0
   username = username || ""
   pet_type = pet_type || 0
   breed_id = breed_id || 0
@@ -46,7 +46,6 @@ export async function getPets(pet_id: string, username: string, pet_type: number
   if (username !== "") {
     query += ` and (a.owner_user = "${username}" )`
   }
-                 
 
   const queryResult = await queryDatabase<PetQuery>(query); 
   
@@ -84,7 +83,7 @@ export async function getPets(pet_id: string, username: string, pet_type: number
                             where 1=1
                             and pet_id = ${pet.pet_id}
                             and event_id = 0`
-      if (pet_id == "") {
+      if (pet_id == 0) {
         photosQuery += ` and main_photo = 1` // si no es consulta especifica por pet_id, traigo solo la foto principal   
       }
       photosQuery += ` order by created_date`
@@ -123,9 +122,7 @@ export async function getPets(pet_id: string, username: string, pet_type: number
   
 async function createPet(pet: InsertPetDto): Promise<Pet> {
 
-  const pet_id = generateUUID();
 
-  const qr_code = generateQRCode(pet_id);
 
   // Verificar que existe breed_id para el type de la mascota
   const queryBreedType = `select count(*) as cant from pet_breed where breed_id = ${pet.breed_id} and pet_type = ${pet.pet_type}`
@@ -137,31 +134,41 @@ async function createPet(pet: InsertPetDto): Promise<Pet> {
   }
 
   // Dar de alta la mascota
-  const query = `INSERT INTO pet (pet_id, name, owner, pet_type, breed_id, qr_code, pet_status, age)
-                  VALUES( "${pet_id}", "${pet.name}", "${pet.owner_user}", ${pet.pet_type}, ${pet.breed_id}, "${qr_code}", ${pet.pet_status}, ${pet.age})`
+  const query = `INSERT INTO pet (name, owner_user, pet_type, breed_id, qr_code, pet_status, age)
+                  VALUES( "${pet.name}", "${pet.owner_user}", ${pet.pet_type}, ${pet.breed_id}, "", ${pet.pet_status}, ${pet.age})`
 
   await queryDatabase<void>(query);
 
-  // Devolver la mascota ingresada
-  const fetchQuery = `SELECT a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
-	                    a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code, a.age
-                    FROM pet a
-                    JOIN pet_type b on b.id = a.pet_type
-                    JOIN pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
-                    JOIN pet_status d on d.status_id = a.pet_status
-                    WHERE a.pet_id = LAST_INSERT_ID()`;
-                
 
-  const { results } = await queryDatabase<Pet>(fetchQuery);
+  // Traer id de la mascota creada
+  const fetchQuery = `SELECT a.pet_id, a.owner_user as owner, a.name, a.pet_type, b.type_name as type,
+                          a.breed_id, c.breed_name as breed, a.pet_status as status_id, d.status, a.qr_code, a.age
+                        FROM pet a
+                        JOIN pet_type b on b.id = a.pet_type
+                        JOIN pet_breed c on c.pet_type = a.pet_type and c.breed_id = a.breed_id
+                        JOIN pet_status d on d.status_id = a.pet_status
+                        WHERE a.pet_id = LAST_INSERT_ID()`;
+                
+  let { results } = await queryDatabase<Pet>(fetchQuery);
 
   if (results.length === 0) {
     throw new Error('Failed to fetch the created pet');
-  }
+  }  
 
-  return results[0];
+  // Crear QR y guardarlo
+  const qr_code = await generateQRCode(results[0].pet_id);
+
+  const updateQRquery = `UPDATE pet set qr_code = "${qr_code}" WHERE pet_id = ${results[0].pet_id}`
+
+  await queryDatabase<void>(updateQRquery);
+
+  // Devolver la mascota ingresada
+  results[0].qr_code = qr_code
+  return results[0]
+
 }
 
-async function updatePet(pet_id: string, pet: UpdatePetDto): Promise<Pet> {
+async function updatePet(pet_id: number, pet: UpdatePetDto): Promise<Pet> {
 
   let moreThanOneData:boolean = false
 
@@ -224,7 +231,7 @@ async function updatePet(pet_id: string, pet: UpdatePetDto): Promise<Pet> {
   
 }
 
-export async function deletePet(pet_id: string): Promise<void> {
+export async function deletePet(pet_id: number): Promise<void> {
   
     // Verificar si existe mascota para borrar
     const findQuery = `SELECT * FROM pet WHERE pet_id = ${pet_id}`;

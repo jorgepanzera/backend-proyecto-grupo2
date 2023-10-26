@@ -7,7 +7,7 @@ import { validate } from 'class-validator';
 
 const getAllPets = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    return res.json(await service.getPets("","",0,0,0));
+    return res.json(await service.getPets(0,"",0,0,0));
 
   } catch (error) {
     next(error);
@@ -19,7 +19,7 @@ const getPetsByStatus = async (req: Request, res: Response, next: NextFunction) 
   const targetStatus = parseInt(req.params.pet_status);
   
   try {
-    return res.json(await service.getPets("","",0,0,targetStatus));
+    return res.json(await service.getPets(0,"",0,0,targetStatus));
 
   } catch (error) {
     next(error);
@@ -28,7 +28,9 @@ const getPetsByStatus = async (req: Request, res: Response, next: NextFunction) 
 
 
 const getPetById = async (req: Request, res: Response, next: NextFunction) => {
-  const targetId = req.params.id;
+  const targetId = parseInt(req.params.id)
+
+
   
   try {
     return res.json(await service.getPets(targetId,"",0,0,0));
@@ -42,7 +44,7 @@ const getPetsByUser = async (req: Request, res: Response, next: NextFunction) =>
   const targetUser = req.params.user
   
   try {
-    return res.json(await service.getPets("",targetUser,0,0,0));
+    return res.json(await service.getPets(0,targetUser,0,0,0));
 
   } catch (error) {
     next(error);
@@ -54,7 +56,7 @@ const getPetsByTypeBreed = async (req: Request, res: Response, next: NextFunctio
   const targetBreed = parseInt(req.params.breed)
   
   try {
-    return res.json(await service.getPets("","",targetType,targetBreed,0))
+    return res.json(await service.getPets(0,"",targetType,targetBreed,0))
 
   } catch (error) {
     next(error);
@@ -139,7 +141,7 @@ const createPet = async (req: Request, res: Response, next: NextFunction) => {
 
 const updatePet = async (req: Request, res: Response, next: NextFunction) => {
 
-  const petId = req.params.id;
+  const petId = parseInt(req.params.id);
   const petData: UpdatePetDto = req.body;
 
   try {
@@ -162,7 +164,7 @@ const updatePet = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 const deletePet = async (req: Request, res: Response, next: NextFunction) => {
-    const targetId = req.params.id;
+    const targetId = parseInt(req.params.id);
     try {
       return res.json(await service.deletePet(targetId));
   
