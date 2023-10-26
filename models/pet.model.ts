@@ -3,7 +3,7 @@ import { Transform } from 'class-transformer'
 
 export interface Pet {
   pet_id: number;
-  owner: string;
+  owner: PetOwner;
   name: string;
   pet_type: number;
   type: string;
@@ -39,6 +39,12 @@ export interface EventPhoto {
   photo_id: number;
   url: string;
   created_date: Date;
+}
+
+export interface PetOwner {
+  username: string;
+  email: string;
+  mobile_number: string;
 }
 
 export interface Message {
